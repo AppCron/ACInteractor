@@ -4,5 +4,5 @@ public protocol Interactor {
     associatedtype RequestType
     associatedtype ResponseType
     
-    func execute(request:RequestType) -> ResponseType
+    func execute(request: RequestType) -> ResponseType
 }
