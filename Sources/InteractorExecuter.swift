@@ -8,16 +8,16 @@ public class InteractorExecuter {
         interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
-    public func execute<RequestType, ResponseType>(request:RequestType) -> ResponseType? {
-        let interactor: InteractorWrapper<RequestType, ResponseType>? = self.findInteractorForRequest(request)
-        return interactor?.execute(request)
+    public func execute<T>(request:T) {
+        let interactor: InteractorWrapper<T>? = self.findInteractorForRequest(request)
+        interactor?.execute(request)
     }
     
-    private func findInteractorForRequest<RequestType, ResponseType>(request:RequestType) -> InteractorWrapper<RequestType, ResponseType>? {
+    private func findInteractorForRequest<T>(request:T) -> InteractorWrapper<T>? {
         let key = String(request)
         let value = interactors[key]
 
-        let interactor = value as? InteractorWrapper<RequestType, ResponseType>
+        let interactor = value as? InteractorWrapper<T>
     
         return interactor
     }
