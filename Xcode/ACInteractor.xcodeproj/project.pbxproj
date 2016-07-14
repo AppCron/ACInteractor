@@ -14,6 +14,7 @@
 		173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77381D3844D400FF88BA /* InteractorExecuter.swift */; };
 		173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77391D3844D400FF88BA /* InteractorRequest.swift */; };
 		173A773E1D3844D400FF88BA /* InteractorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A773A1D3844D400FF88BA /* InteractorWrapper.swift */; };
+		173A77411D38461D00FF88BA /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77401D38461D00FF88BA /* InteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		173A77381D3844D400FF88BA /* InteractorExecuter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorExecuter.swift; sourceTree = "<group>"; };
 		173A77391D3844D400FF88BA /* InteractorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorRequest.swift; sourceTree = "<group>"; };
 		173A773A1D3844D400FF88BA /* InteractorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorWrapper.swift; sourceTree = "<group>"; };
+		173A77401D38461D00FF88BA /* InteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				173A77361D3844D400FF88BA /* Sources */,
+				173A773F1D3845BF00FF88BA /* Tests */,
 				173A771E1D3842A200FF88BA /* ACInteractor */,
 				173A772A1D3842A200FF88BA /* ACInteractorTests */,
 				173A771D1D3842A200FF88BA /* Products */,
@@ -105,6 +108,15 @@
 			);
 			name = Sources;
 			path = ../Sources;
+			sourceTree = "<group>";
+		};
+		173A773F1D3845BF00FF88BA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				173A77401D38461D00FF88BA /* InteractorTests.swift */,
+			);
+			name = Tests;
+			path = ../Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				173A77411D38461D00FF88BA /* InteractorTests.swift in Sources */,
 				173A772C1D3842A200FF88BA /* ACInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
