@@ -10,6 +10,10 @@
 		173A77201D3842A200FF88BA /* ACInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 173A771F1D3842A200FF88BA /* ACInteractor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		173A77271D3842A200FF88BA /* ACInteractor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 173A771C1D3842A200FF88BA /* ACInteractor.framework */; };
 		173A772C1D3842A200FF88BA /* ACInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A772B1D3842A200FF88BA /* ACInteractorTests.swift */; };
+		173A773B1D3844D400FF88BA /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77371D3844D400FF88BA /* Interactor.swift */; };
+		173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77381D3844D400FF88BA /* InteractorExecuter.swift */; };
+		173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77391D3844D400FF88BA /* InteractorRequest.swift */; };
+		173A773E1D3844D400FF88BA /* InteractorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A773A1D3844D400FF88BA /* InteractorWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		173A77261D3842A200FF88BA /* ACInteractorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACInteractorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		173A772B1D3842A200FF88BA /* ACInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACInteractorTests.swift; sourceTree = "<group>"; };
 		173A772D1D3842A200FF88BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		173A77371D3844D400FF88BA /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		173A77381D3844D400FF88BA /* InteractorExecuter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorExecuter.swift; sourceTree = "<group>"; };
+		173A77391D3844D400FF88BA /* InteractorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorRequest.swift; sourceTree = "<group>"; };
+		173A773A1D3844D400FF88BA /* InteractorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,7 @@
 		173A77121D3842A200FF88BA = {
 			isa = PBXGroup;
 			children = (
+				173A77361D3844D400FF88BA /* Sources */,
 				173A771E1D3842A200FF88BA /* ACInteractor */,
 				173A772A1D3842A200FF88BA /* ACInteractorTests */,
 				173A771D1D3842A200FF88BA /* Products */,
@@ -84,6 +93,18 @@
 				173A772D1D3842A200FF88BA /* Info.plist */,
 			);
 			path = ACInteractorTests;
+			sourceTree = "<group>";
+		};
+		173A77361D3844D400FF88BA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				173A77371D3844D400FF88BA /* Interactor.swift */,
+				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
+				173A77391D3844D400FF88BA /* InteractorRequest.swift */,
+				173A773A1D3844D400FF88BA /* InteractorWrapper.swift */,
+			);
+			name = Sources;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +215,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				173A773B1D3844D400FF88BA /* Interactor.swift in Sources */,
+				173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */,
+				173A773E1D3844D400FF88BA /* InteractorWrapper.swift in Sources */,
+				173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +403,7 @@
 				173A77321D3842A200FF88BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		173A77331D3842A200FF88BA /* Build configuration list for PBXNativeTarget "ACInteractorTests" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +412,7 @@
 				173A77351D3842A200FF88BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
