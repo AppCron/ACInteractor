@@ -6,7 +6,7 @@ import Foundation
 // let x = Interactor<RequestType> does not work
 // let x = InteractorWrapper<RequestType> does work
 
-class InteractorWrapper<RequestType>: Interactor {
+class InteractorWrapper<RequestType> {
     
     let executeClosure: RequestType -> Void
     let wrappedInteractor:AnyObject

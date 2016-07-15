@@ -63,7 +63,7 @@ class InteractorTests: XCTestCase {
     }
     
     class FirstInteractor: TestIntactor, Interactor {
-        class Request {
+        class Request: InteractorRequest<NSString> {
         }
         
         func execute(request: Request) {
@@ -72,7 +72,7 @@ class InteractorTests: XCTestCase {
     }
     
     class SecondInteractor: TestIntactor, Interactor {
-        class Request {
+        class Request: InteractorRequest<NSString> {
         }
         
         func execute(request: Request) {

@@ -80,8 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				173A77371D3844D400FF88BA /* Interactor.swift */,
-				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
 				173A77391D3844D400FF88BA /* InteractorRequest.swift */,
+				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
 				173A773A1D3844D400FF88BA /* InteractorWrapper.swift */,
 			);
 			name = Sources;

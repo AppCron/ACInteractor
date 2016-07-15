@@ -4,7 +4,7 @@ public class InteractorExecuter {
     
     private var interactors = Dictionary<String, AnyObject>()
     
-    public func registerInteractor<InteractorType: Interactor>(interactor: InteractorType, request: AnyObject) {
+    public func registerInteractor<I: Interactor, R>(interactor: I, request: InteractorRequest<R>) {
         let key = String(request)
         self.interactors[key] = InteractorWrapper(interactor: interactor)
     }
