@@ -1,7 +1,9 @@
 import Foundation
 
 public protocol Interactor {
-    associatedtype RequestType
     
+    associatedtype RequestType
+
     func execute(request: RequestType)
+
 }

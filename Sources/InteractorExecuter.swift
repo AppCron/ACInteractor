@@ -1,6 +1,7 @@
 import Foundation
 
 public class InteractorExecuter {
+    
     private var interactors = Dictionary<String, AnyObject>()
     
     public func registerInteractor<InteractorType: Interactor>(interactor: InteractorType, request: AnyObject) {
@@ -21,4 +22,5 @@ public class InteractorExecuter {
     
         return interactor
     }
+    
 }
