@@ -3,46 +3,81 @@ import XCTest
 
 class InteractorTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let executer = InteractorExecuter()
+    
+    let firstInteractor = FirstInteractor()
+    let secondInteractor = SecondInteractor()
+    let firstRequest = FirstInteractor.Request()
+    let secondRequest = SecondInteractor.Request()
+        
+    // MARK: Test execute
+    
+    func testExecute_withInteractorAndRequest_callsExecuteOnInteractor() {
+        // Arrange
+        executer.registerInteractor(firstInteractor, request: firstRequest)
+        
+        // Act
+        executer.execute(firstRequest)
+        
+        // Assert
+        XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testExecute_withTwoInteractors_executeOnSecond_callsExecuteOnSecondInteractor() {
+        // Arrange
+        executer.registerInteractor(firstInteractor, request: firstRequest)
+        executer.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        executer.execute(secondRequest)
+        
+        // Assert
+        XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
     }
     
-    // MARK: Test Interactor
+    func testExecute_withTwoInteractors_executeOnBoth_callsExecuteOnEachInteractor() {
+        // Arrange
+        executer.registerInteractor(firstInteractor, request: firstRequest)
+        executer.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        executer.execute(firstRequest)
+        executer.execute(secondRequest)
+        
+        // Assert
+        XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
+        XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
+    }
     
-    class TestInteractor: Interactor {
+    // MARK: Test Interactors
+    
+    class TestIntactor {
+        init() {
+            print("initT")
+        }
         var numberOfExceuteCalls = 0
         
+        func testExecute() {
+            numberOfExceuteCalls += 1
+        }
+    }
+    
+    class FirstInteractor: TestIntactor, Interactor {
         class Request {
         }
         
         func execute(request: Request) {
-            numberOfExceuteCalls += 1
+            self.testExecute()
         }
     }
-        
-    // MARK: exceute
     
-    func testExecute_withInteractorAndRequest_callsExecuteOnInteractor() {
-        // Arrange
-        let interactor = TestInteractor()
-        let request = TestInteractor.Request()
-        let executer = InteractorExecuter()
-        executer.registerInteractor(interactor, request: request)
+    class SecondInteractor: TestIntactor, Interactor {
+        class Request {
+        }
         
-        // Act
-        executer.execute(request)
-        
-        // Assert
-        XCTAssertEqual(interactor.numberOfExceuteCalls, 1)
+        func execute(request: Request) {
+            self.testExecute()
+        }
     }
     
-    
-    
-    //test Two Requests no throw
 }
