@@ -56,6 +56,20 @@ class InteractorTests: XCTestCase {
         XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
     }
     
+    func testExecute_withUnknownRequest_callsErrorOnRequest() {
+        // Arrange
+        var errorClosureHasBeenCalled = false
+        firstRequest.onError = { ErrorType -> Void in
+            errorClosureHasBeenCalled = true
+        }
+        
+        // Act
+        executer.execute(firstRequest)
+        
+        // Assert
+        XCTAssert(errorClosureHasBeenCalled)
+    }
+    
     // MARK: Test Interactors
     
     class TestIntactor {

@@ -11,18 +11,20 @@ public class InteractorExecuter {
         self.interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
-    public func execute<Request>(request: Request) {
-        let interactor = self.interactorForRequest(request)
-        interactor?.execute(request)
-    }
-    
-    private func interactorForRequest<T>(request:T) -> InteractorWrapper<T>? {
+    public func execute<Request: ErrorRequest>(request: Request) {
+        
         let key = String(request)
-        let value = interactors[key]
-
-        let interactor = value as? InteractorWrapper<T>
-    
-        return interactor
+        let optionalValue = interactors[key]
+        
+        guard let value = optionalValue else {
+            request.onError?(NSError(domain: "", code: 1, userInfo: nil))
+            return
+        }
+        
+        if let wrapper = value as? InteractorWrapper<Request>
+        {
+            wrapper.execute(request)
+        }
     }
     
 }

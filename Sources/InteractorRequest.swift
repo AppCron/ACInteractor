@@ -1,7 +1,11 @@
 import Foundation
 
-public class InteractorRequest<Response> {
+public class ErrorRequest {
+    var onError:(ErrorType -> Void)?
+}
+
+
+public class InteractorRequest<Response>: ErrorRequest {
     
     var onComplete:(Response -> Void)?
-    
 }

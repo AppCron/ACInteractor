@@ -13,7 +13,7 @@ class InteractorWrapper<Request> {
     
      init<I: Interactor where I.Request == Request>(interactor: I) {
         self.executeClosure = interactor.execute
-        self.wrappedInteractor = interactor as! AnyObject
+        self.wrappedInteractor = interactor
     }
     
      func execute(request: Request) {

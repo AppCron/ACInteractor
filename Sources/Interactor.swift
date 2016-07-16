@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Interactor {
+public protocol Interactor: AnyObject {
     
     associatedtype Request
 
