@@ -4,12 +4,14 @@ public class InteractorExecuter {
     
     private var interactors = Dictionary<String, AnyObject>()
     
-    public func registerInteractor<I: Interactor, R>(interactor: I, request: InteractorRequest<R>) {
+    public func registerInteractor<InteractorProtocol: Interactor, Response>
+        (interactor: InteractorProtocol, request: InteractorRequest<Response>)
+    {
         let key = String(request)
         self.interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
-    public func execute<RequestType>(request: RequestType) {
+    public func execute<Request>(request: Request) {
         let interactor = self.interactorForRequest(request)
         interactor?.execute(request)
     }

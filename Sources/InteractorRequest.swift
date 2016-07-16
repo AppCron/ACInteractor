@@ -1,7 +1,7 @@
 import Foundation
 
-public class InteractorRequest<CompletionType> {
+public class InteractorRequest<Response> {
     
-    var onComplete:(CompletionType -> Void)?
+    var onComplete:(Response -> Void)?
     
 }

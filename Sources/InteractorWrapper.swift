@@ -6,17 +6,17 @@ import Foundation
 // let x = Interactor<RequestType> does not work
 // let x = InteractorWrapper<RequestType> does work
 
-class InteractorWrapper<RequestType> {
+class InteractorWrapper<Request> {
     
-    let executeClosure: RequestType -> Void
+    let executeClosure: Request -> Void
     let wrappedInteractor:AnyObject
     
-     init<T: Interactor where T.RequestType == RequestType>(interactor: T) {
+     init<I: Interactor where I.Request == Request>(interactor: I) {
         self.executeClosure = interactor.execute
         self.wrappedInteractor = interactor as! AnyObject
     }
     
-     func execute(request: RequestType) {
+     func execute(request: Request) {
         executeClosure(request)
     }
     
