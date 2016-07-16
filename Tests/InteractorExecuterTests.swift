@@ -9,8 +9,15 @@ class InteractorTests: XCTestCase {
     let secondInteractor = SecondInteractor()
     let firstRequest = FirstInteractor.Request()
     let secondRequest = SecondInteractor.Request()
-        
-    // MARK: Test execute
+    
+    // MARK: registerInteractor
+    
+    func testRegisterInteractor_succeeds(){
+        // Act
+        executer.registerInteractor(firstInteractor, request: firstRequest)
+    }
+    
+    // MARK: execute
     
     func testExecute_withInteractorAndRequest_callsExecuteOnInteractor() {
         // Arrange
