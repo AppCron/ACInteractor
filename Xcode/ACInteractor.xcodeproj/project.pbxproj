@@ -13,6 +13,8 @@
 		173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77391D3844D400FF88BA /* InteractorRequest.swift */; };
 		173A77411D38461D00FF88BA /* InteractorExecuterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77401D38461D00FF88BA /* InteractorExecuterTests.swift */; };
 		173A77D21D3849E200FF88BA /* ACInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 173A77431D3849E100FF88BA /* ACInteractor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		17567E551D3A61C900C464BB /* InteractorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17567E541D3A61C900C464BB /* InteractorError.swift */; };
+		17567E591D3A640000C464BB /* InteractorErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17567E581D3A640000C464BB /* InteractorErrorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		173A77401D38461D00FF88BA /* InteractorExecuterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorExecuterTests.swift; sourceTree = "<group>"; };
 		173A77431D3849E100FF88BA /* ACInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACInteractor.h; sourceTree = "<group>"; };
 		173A77D11D3849E200FF88BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17567E541D3A61C900C464BB /* InteractorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorError.swift; sourceTree = "<group>"; };
+		17567E581D3A640000C464BB /* InteractorErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorErrorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			children = (
 				173A77371D3844D400FF88BA /* Interactor.swift */,
 				173A77391D3844D400FF88BA /* InteractorRequest.swift */,
+				17567E541D3A61C900C464BB /* InteractorError.swift */,
 				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
 			);
 			name = Sources;
@@ -89,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				173A77401D38461D00FF88BA /* InteractorExecuterTests.swift */,
+				17567E581D3A640000C464BB /* InteractorErrorTests.swift */,
 			);
 			name = Tests;
 			path = ../Tests;
@@ -212,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				173A773B1D3844D400FF88BA /* Interactor.swift in Sources */,
+				17567E551D3A61C900C464BB /* InteractorError.swift in Sources */,
 				173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */,
 				173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */,
 			);
@@ -222,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				173A77411D38461D00FF88BA /* InteractorExecuterTests.swift in Sources */,
+				17567E591D3A640000C464BB /* InteractorErrorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
