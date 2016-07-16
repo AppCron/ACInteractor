@@ -10,6 +10,17 @@ class InteractorTests: XCTestCase {
     let firstRequest = FirstInteractor.Request()
     let secondRequest = SecondInteractor.Request()
     
+    var errorMessageFromFirstRequest: NSString?
+    
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        firstRequest.onError = { (error: InteractorError) -> Void in
+            self.errorMessageFromFirstRequest = error.message
+        }
+    }
+    
     // MARK: registerInteractor
     
     func testRegisterInteractor_succeeds(){
@@ -57,48 +68,56 @@ class InteractorTests: XCTestCase {
     }
     
     func testExecute_withUnknownRequest_callsErrorOnRequest() {
+        // Act
+        executer.execute(firstRequest)
+        
+        // Assert
+        let expected = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
+    }
+    
+    func testExecute_withMismatchRequest_callsErrorOnRequest() {
         // Arrange
-        var errorMessage = ""
-        firstRequest.onError = { (error: InteractorError) -> Void in
-            errorMessage = error.message
-        }
+        executer.registerInteractor(secondInteractor, request: firstRequest)
         
         // Act
         executer.execute(firstRequest)
         
         // Assert
-        XCTAssertEqual(errorMessage, "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!")
+        let expected = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
-    // MARK: Test Interactors
+}
+
+
+// MARK: Test Interactors
+
+class TestIntactor {
+    init() {
+        print("initT")
+    }
+    var numberOfExceuteCalls = 0
     
-    class TestIntactor {
-        init() {
-            print("initT")
-        }
-        var numberOfExceuteCalls = 0
-        
-        func testExecute() {
-            numberOfExceuteCalls += 1
-        }
+    func testExecute() {
+        numberOfExceuteCalls += 1
+    }
+}
+
+class FirstInteractor: TestIntactor, Interactor {
+    class Request: InteractorRequest<NSString> {
     }
     
-    class FirstInteractor: TestIntactor, Interactor {
-        class Request: InteractorRequest<NSString> {
-        }
-        
-        func execute(request: Request) {
-            self.testExecute()
-        }
+    func execute(request: Request) {
+        self.testExecute()
+    }
+}
+
+class SecondInteractor: TestIntactor, Interactor {
+    class Request: InteractorRequest<NSString> {
     }
     
-    class SecondInteractor: TestIntactor, Interactor {
-        class Request: InteractorRequest<NSString> {
-        }
-        
-        func execute(request: Request) {
-            self.testExecute()
-        }
+    func execute(request: Request) {
+        self.testExecute()
     }
-    
 }
