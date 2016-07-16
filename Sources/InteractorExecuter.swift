@@ -2,6 +2,10 @@ import Foundation
 
 public class InteractorExecuter {
     
+    // MARK: Texts
+    private static let interactorNotRegistered = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
+    
+    // MARK: Implementation
     private var interactors = Dictionary<String, AnyObject>()
     
     public func registerInteractor<InteractorProtocol: Interactor, Response>
@@ -16,7 +20,7 @@ public class InteractorExecuter {
         let optionalValue = interactors[key]
         
         guard let value = optionalValue else {
-            request.onError?(NSError(domain: "", code: 1, userInfo: nil))
+            request.onError?(InteractorError(message: InteractorExecuter.interactorNotRegistered))
             return
         }
         
@@ -29,6 +33,9 @@ public class InteractorExecuter {
     
 }
 
+
+
+// MARK: Wrapper
 
 // Wrapper class for interactors.
 // This class is required as long as Swift does not support generic protocol types as variable types.

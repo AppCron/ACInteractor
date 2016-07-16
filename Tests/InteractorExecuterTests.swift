@@ -58,16 +58,16 @@ class InteractorTests: XCTestCase {
     
     func testExecute_withUnknownRequest_callsErrorOnRequest() {
         // Arrange
-        var errorClosureHasBeenCalled = false
-        firstRequest.onError = { ErrorType -> Void in
-            errorClosureHasBeenCalled = true
+        var errorMessage = ""
+        firstRequest.onError = { (error: InteractorError) -> Void in
+            errorMessage = error.message
         }
         
         // Act
         executer.execute(firstRequest)
         
         // Assert
-        XCTAssert(errorClosureHasBeenCalled)
+        XCTAssertEqual(errorMessage, "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!")
     }
     
     // MARK: Test Interactors
