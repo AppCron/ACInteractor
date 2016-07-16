@@ -12,7 +12,6 @@ public class InteractorExecuter {
     }
     
     public func execute<Request: ErrorRequest>(request: Request) {
-        
         let key = String(request)
         let optionalValue = interactors[key]
         
@@ -21,10 +20,11 @@ public class InteractorExecuter {
             return
         }
         
-        if let wrapper = value as? InteractorWrapper<Request>
-        {
-            wrapper.execute(request)
+        guard let wrapper = value as? InteractorWrapper<Request> else {
+            return
         }
+        
+        wrapper.execute(request)
     }
     
 }
