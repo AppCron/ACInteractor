@@ -186,7 +186,46 @@ To execute an *Request* you can simply call the **executeMethod()** on the **Int
 In our example this instance is stored in the static **executer** property on the Logic class, as shown above.
 
 ## Error Handling
-tbd
+Basic error handling is already part of ACInteractor. Each **InteractorRequest** has an **onError** property that stores a closure for the error handling. 
+
+### On the Interactor Implementation
+``` Swift
+class LoginIntactor: Interactor {
+	...
+    func execute(request: Request) {
+        if (request.password?.characters.count > 0) {
+            ...        
+        } else {
+            let error = InteractorError(message: "Empty password!")
+            request.onError?(error)
+        }
+    }
+}
+```
+ On the Interactor all you have to do is create an instance of **InteractorError**, supply an error message and call the error handler with the error object.
+
+### On the Execute Call
+``` Swift
+class LoginViewController: UIViewController {
+    ...
+    func login() {
+        let request = LoginIntactor.Request()
+        
+		...
+        
+        request.onError = { (error: InteractorError) in
+            self.displayError(error.message)
+        }
+        
+        Logic.executer.execute(request)
+    }
+}
+```
+When executing an request make sure to set an closure for error handling on its **onError** property.
+
+## Extended Completion Handlers
+
+## Asyncronous Requests
 
 ## Dependency Injection
 
