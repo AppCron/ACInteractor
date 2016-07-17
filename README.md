@@ -308,4 +308,12 @@ If you use the Dependency Injection approach described above you can easily mock
 simulate, like a long taking webservice request or a full database.
 
 ## Troubleshooting
-
+0. I can not register my Interactor at the InteractorExecuter. I get an Compiler Error.
+  * Make sure the `intactor` implements the `Interactor` protocol
+  * Make sure the `request` is a sublcass of `InteractorRequest<Response>` and is correctly typed.
+  * Make sure the `request` is an initialized object instance.
+  
+0. Calling execute on the InteractorExecuter does not call the execute method of my Interactor.
+  * Make sure you have registered the Interactor with the corresponding InteractoRequest by calling the `registerInteractor()` function on the `InteractorExecuter`.
+  * Make sure you have called the `registerInteractor()` and the `execute()` function on the **same** instance of `InteractorExecuter`.
+  * Make sure you have set an `onError` closure on the `request`. It might provide additional details in the error message about what went wrong.
