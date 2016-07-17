@@ -226,9 +226,12 @@ When executing an request make sure to set an closure for error handling on its 
 ## Extended Completion Handlers
 It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as poperties to specific request or by subclassing **InteractorRequest**.
 
-**Be aware when adding custom error handlers.** ACInteractor uses the default **onError** closure to report internal errors, like not finding an interactor for a given request. See section "Troubleshooting" for Details.
+**Be aware when adding custom error handlers.** ACInteractor uses the default **onError** closure to report internal errors, like not finding an Interactor for a given request. See section "Troubleshooting" for Details.
 
-## Asyncronous Requests
+## Asynchronous Requests
+Since ACInteractor uses closures for result handling, you can easily switch between synchronous and asychronous behavior without the need to adjust your Interactor's interface. 
+
+When making asychronous callbacks from your Interactor, it's recommend to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when and how to dispatch back to the caller's thread is a technical detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to disptach your asynchronous stuff back on the main thread. Maybe it can by done with `dispatch_async`, maybe `dispatch_sync` is neccessary, the ViewController can't know.
 
 ## Dependency Injection
 
