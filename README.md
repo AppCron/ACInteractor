@@ -301,8 +301,11 @@ class LoginViewController: UIViewController {
 ```
 Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecuter**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGatways and Plugins without breaking the API that is used by the caller.
 
-## Unit-Testing
+## Unit Testing
+ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a definied request and response, a statless implemention and injected dependencies. This helps writing isolated Unit Tests for each Interactor. 
 
+If you use the Dependency Injection approach described above you can easily mock the dependcies in your Unit Tests. For example this means you don't need to execute a real webservice call or setup a real database to run your tests. The mocks can just return the values that support you current test. Mocks can also help you to test edge cases that would be otherwise hard to 
+simulate, like a long taking webservice request or a full database.
 
 ## Troubleshooting
 
