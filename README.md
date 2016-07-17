@@ -164,7 +164,26 @@ In our case we use a helper class called **Logic**. It contains a static functio
 Besides that, the **Logic** contains a static property with a global **Executer** instance. This makes it easier for the consumer to access the given instance.
 
 ## Executing Requests
+``` Swift
+class LoginViewController: UIViewController {
+    ...
+    func login() {
+        let request = LoginIntactor.Request()
+        
+        request.email = "first.last@appcron.com"
+        request.password = "1234"
+        
+        request.onComplete = { (response: LoginIntactor.Response) in
+            self.userLabel.text = response.username
+        }
+        
+        Logic.executer.execute(request)
+    }
+}
+```
+To execute an *Request* you can simply call the **executeMethod()** on the **InteractorExecuter**. Just make sure you have registered the that Interactor class with its Request on the same **InteractorExecuter** instance.
 
+In our example this instance is stored in the static **executer** property on the Logic class, as shown above.
 
 ## Error Handling
 tbd
