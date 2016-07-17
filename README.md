@@ -31,11 +31,11 @@ class LoginViewController: UIViewController {
 }
 ```
 
-Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecuter**. Therefore an initialized instance of each Interactor has to be registerd on the **InteractorExecuter**. Interactors should be stateless, since all Requests of a given Interactor are handeled by the same instance of that Interactor.
+Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecuter**. Therefore an initialized instance of each Interactor has to be registered on the **InteractorExecuter**. Interactors should be stateless, since all Requests of a given Interactor are handled by the same instance of that Interactor.
 
-ACInteractor adds no constraints to dependency management.  It's up to you how initialze the Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
+ACInteractor adds no constraints to dependency management.  It's up to you how initialize the Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
 
-ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a definied request and response, a statless implemention and injected dependencies. This helps writing isolated Unit Tests for each Interactor. See section "Unit Testing" for more details about writing tests.
+ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a defined request and response, a stateless implementation and injected dependencies. This helps writing isolated Unit Tests for each Interactor. See section "Unit Testing" for more details about writing tests.
 
 ### License
 [Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0)
@@ -79,9 +79,9 @@ class LoginIntactor: Interactor {
     func execute(request: Request) {...}
 }
 ```
-Let's write our first Intactor. It should handle a user login and accepts all logins as long as the user provides a password.
+Let's write our first Interactor. It should handle a user login and accepts all logins as long as the user provides a password.
 
-Each Interactor has to implement the **Interactor** protocol, which requires the Intactor to have an **execute()** function. Since each Interactor handles excatly one Use Case, only one execute function is neccessary.
+Each Interactor has to implement the **Interactor** protocol, which requires the Interactor to have an **execute()** function. Since each Interactor handles exactly one Use Case, only one execute function is necessary.
 
 Usually it contains two nested classes. The Request and the Response.
 
@@ -96,7 +96,7 @@ class LoginIntactor: Interactor {
 }
 ```
 
-The Request contains all the parameters that are neccessary to execute it. In our case the email and the password. 
+The Request contains all the parameters that are necessary to execute it. In our case the email and the password. 
 
 It has to be derived from the generic `InteractorRequest<ResponseType>` and should by typed with the **ResponseType** of the Interactor. This will help us execute the Request later. See section "The Execute Function" for details.
 
@@ -157,7 +157,7 @@ class Logic {
 
 }
 ```
-To enable consumers, like ViewControllers, to easily execute **InteractorRequests** it's neccessary to register the corresponding Interactor first.
+To enable consumers, like ViewControllers, to easily execute **InteractorRequests** it's necessary to register the corresponding Interactor first.
 
 In our case we use a helper class called **Logic**. It contains a static function **registerInteractors()** that creates a **LoginInteractor** instance an registers it with the corresponding **Request** at the **InteractorExecuter**.
 
@@ -224,14 +224,14 @@ class LoginViewController: UIViewController {
 When executing an request make sure to set an closure for error handling on its **onError** property.
 
 ## Extended Completion Handlers
-It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as poperties to specific request or by subclassing **InteractorRequest**.
+It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as properties to specific request or by subclassing **InteractorRequest**.
 
 **Be aware when adding custom error handlers.** ACInteractor uses the default **onError** closure to report internal errors, like not finding an Interactor for a given request. See section "Troubleshooting" for Details.
 
 ## Asynchronous Requests
-Since ACInteractor uses closures for result handling, you can easily switch between synchronous and asychronous behavior without the need to adjust your Interactor's interface. 
+Since ACInteractor uses closures for result handling, you can easily switch between synchronous and asynchronous behavior without the need to adjust your Interactor's interface. 
 
-When making asychronous callbacks from your Interactor, it's recommend to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when and how to dispatch back to the caller's thread is a technical detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to disptach your asynchronous stuff back on the main thread. Maybe it can by done with `dispatch_async`, maybe `dispatch_sync` is neccessary, the ViewController can't know.
+When making asynchronous callbacks from your Interactor, it's recommend to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when and how to dispatch back to the caller's thread is a technical detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to dispatch your asynchronous stuff back on the main thread. Maybe it can by done with `dispatch_async`, maybe `dispatch_sync` is necessary, the ViewController can't know.
 
 ## Dependency Injection
 In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
@@ -244,9 +244,9 @@ class UserCoreDataEntityGateway: UserEntityGateway{
 ```
 The **LoginWebservice** handles the webservice calls and calls the onCompletion closure once finished.
 
-The **UserEntityGateway** has functions to create new users and to save users. It is responsible for creating and saving new entites. So our **LoginInteractor** does not need to now how we presist data. It can be a CoreData-, a Realm- or just a In-Memory-Database.
+The **UserEntityGateway** has functions to create new users and to save users. It is responsible for creating and saving new entities. So our **LoginInteractor** does not need to now how we persist data. It can be a CoreData-, a Realm- or just a In-Memory-Database.
 
-Additionally it is usefull to define a protocol for each dependency. This let's us replace them easily with mocks when writing unit tets.
+Additionally it is useful to define a protocol for each dependency. This let's us replace them easily with mocks when writing unit tests.
 
 ### On the Interactor Implementation
 ``` Swift
@@ -267,7 +267,7 @@ class LoginIntactor: Interactor {
     }
 }
 ```
- On the Interactor we need a custom **init** function that takes the dependencies as parameters and stores them in private properties. We can then use them in the *execute* function.
+On the Interactor we need a custom **init** function that takes the dependencies as parameters and stores them in private properties. We can then use them in the *execute* function.
 
 ### Register with Dependencies
 ``` Swift
@@ -299,18 +299,18 @@ class LoginViewController: UIViewController {
     }
 }
 ```
-Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecuter**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGatways and Plugins without breaking the API that is used by the caller.
+Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecuter**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGateways and Plugins without breaking the API that is used by the caller.
 
 ## Unit Testing
-ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a definied request and response, a statless implemention and injected dependencies. This helps writing isolated Unit Tests for each Interactor. 
+ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a defined request and response, a stateless implementation and injected dependencies. This helps writing isolated Unit Tests for each Interactor. 
 
-If you use the Dependency Injection approach described above you can easily mock the dependcies in your Unit Tests. For example this means you don't need to execute a real webservice call or setup a real database to run your tests. The mocks can just return the values that support you current test. Mocks can also help you to test edge cases that would be otherwise hard to 
+If you use the Dependency Injection approach described above you can easily mock the dependencies in your Unit Tests. For example this means you don't need to execute a real webservice call or setup a real database to run your tests. The mocks can just return the values that support you current test. Mocks can also help you to test edge cases that would be otherwise hard to 
 simulate, like a long taking webservice request or a full database.
 
 ## Troubleshooting
 0. I can not register my Interactor at the InteractorExecuter. I get an Compiler Error.
-  * Make sure the `intactor` implements the `Interactor` protocol
-  * Make sure the `request` is a sublcass of `InteractorRequest<Response>` and is correctly typed.
+  * Make sure the `interactor` implements the `Interactor` protocol
+  * Make sure the `request` is a subclass of `InteractorRequest<Response>` and is correctly typed.
   * Make sure the `request` is an initialized object instance.
 
 0. Calling execute on the InteractorExecuter does not call the execute method of my Interactor.
@@ -320,7 +320,7 @@ simulate, like a long taking webservice request or a full database.
 
 ## Credits
 Special thanks from [Florian Rieger](https://github.com/florieger) to the people that helped getting ACInteractor together.
-- [Andreas Hager](https://github.com/casid) For inpiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
+- [Andreas Hager](https://github.com/casid) For inspiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
 - Victoria Gärtner For evaluating the Interactor-based architecture in several Objective-C and Swift projects.
 - [Aleksandar Damjanovic](https://github.com/codejanovic) For introducing me to the Github workflow.
 
