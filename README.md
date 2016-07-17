@@ -9,6 +9,28 @@ ACInteractor is a Swift Package that supports a Use Case centric architecture an
 - Each Interactor has a Response model.
 - Each Interactor has a Execute function that takes the Request model an returns the Response model.
 
+``` Swift
+class LoginViewController: UIViewController {
+    ...
+    func login() {
+        let request = LoginIntactor.Request()
+        
+        request.email = "first.last@appcron.com"
+        request.password = "1234"
+        
+        request.onComplete = { (response: LoginIntactor.Response) in
+            self.userLabel.text = response.username
+        }
+        
+        request.onError = { (error: InteractorError) in
+            self.displayError(error.message)
+        }
+        
+        Logic.executer.execute(request)
+    }
+}
+```
+
 Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecuter**. Therefore an initialized instance of each Interactor has to be registerd on the **InteractorExecuter**. Interactors should be stateless, since all Requests of a given Interactor are handeled by the same instance of that Interactor.
 
 ACInteractor adds no constraints to dependency management.  It's up to you how initialze the Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
@@ -46,7 +68,7 @@ At the moment it's recommended to add the entire ACInteractor project as a [Git 
 0. Add the files of the **Sources** folder to your project.
 
 ### via Download
-Alternativly you can just download the files directly from Github and add the files of the *Sources* folder to your project.
+Alternatively you can just download the files directly from Github and add the files of the *Sources* folder to your project.
 
 ## Writing Intactors
 ``` Swift
