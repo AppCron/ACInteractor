@@ -143,10 +143,28 @@ The Execute Function is the part where the business logic of the Use Case is imp
 The **onComplete** closure is already defined in the **InteractorRequest** and already typed with the Response. That's why the **Request** has to be a subclass of **InteractorRequest**.
 
 ## Registering Interactors
-tbd
+``` Swift
+class Logic {
+    
+    static let executer = InteractorExecuter()
+    
+    static func registerInteractors() {
+        let loginInteractor = LoginIntactor()
+        let loginRequest = LoginIntactor.Request()
+        
+        executer.registerInteractor(loginInteractor, request: loginRequest)
+    }
+
+}
+```
+To enable consumers, like ViewControllers, to easily execute **InteractorRequests** it's neccessary to register the corresponding Interactor first.
+
+In our case we use a helper class called **Logic**. It contains a static function **registerInteractors()** that creates a **LoginInteractor** instance an registers it with the corresponding **Request** at the **InteractorExecuter**.
+
+Besides that, the **Logic** contains a static property with a global **Executer** instance. This makes it easier for the consumer to access the given instance.
 
 ## Executing Requests
-tbd
+
 
 ## Error Handling
 tbd
