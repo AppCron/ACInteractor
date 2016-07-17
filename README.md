@@ -1,16 +1,36 @@
 # ACInteractor
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/appcron/acinteractor/master/LICENSE)
 
-Swift Package for a use case centric architecture as proposed by Robert C. Martin and others.
-
-## Current Status
-Work in progress … 🐳
+Swift Package for a Use Case centric architecture as proposed by Robert C. Martin and others.
 
 ## Overview
-ACIntactor is a Swift Package that supports a use case centric architecture in Swift projects.
+ACInteractor is a Swift Package that supports a Use Case centric architecture and TDD in Swift projects. The basic idea is that one Use Case, and only one Use Case, is executed by a single class. As proposed by Robert C. Martin, these kind of classes are called Interactors.
+- Each Interactor has a Request model.
+- Each Interactor has a Response model.
+- Each Interactor has a Execute function that takes the Request model an returns the Response model.
+
+Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecuter**. Therefore an initialized instance of each Interactor has to be registerd on the **InteractorExecuter**. Interactors should be stateless, since all Requests of a given Interactor are handeled by the same instance of that Interactor.
+
+ACInteractor adds no constraints to dependency management.  It's up to you how initialze the Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
+
+ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a definied request and response, a statless implemention and injected dependencies. This helps writing isolated Unit Tests for each Interactor. See section "Unit Testing" for more details about writing tests.
 
 ### License
 [Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0)
+
+### Must watch
+If you're new to *Clean Code* and **TDD**, [Robert C. Martin's Talk at Ruby Midwest](https://www.youtube.com/watch?v=WpkDN78P884) is highly recommended. It's fun to watch and worth the time. The entire architecture around ACInteractor and the goals of it are based on this talk.
+
+### Content
+ACInteractor currently consists of the following files:
+```
+ACInteractor
+├── LICENSE
+├── README.md
+├── Sources     // The source files
+├── Tests       // The unit test files
+└── Xcode       // The Xcode project to run the test
+```
 
 ## Setup
 Since Swift 3 and Swift Package are not available with an stable Xcode release, just add the Files of the **Sources** folder to your project.
