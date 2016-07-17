@@ -312,8 +312,16 @@ simulate, like a long taking webservice request or a full database.
   * Make sure the `intactor` implements the `Interactor` protocol
   * Make sure the `request` is a sublcass of `InteractorRequest<Response>` and is correctly typed.
   * Make sure the `request` is an initialized object instance.
-  
+
 0. Calling execute on the InteractorExecuter does not call the execute method of my Interactor.
   * Make sure you have registered the Interactor with the corresponding InteractoRequest by calling the `registerInteractor()` function on the `InteractorExecuter`.
   * Make sure you have called the `registerInteractor()` and the `execute()` function on the **same** instance of `InteractorExecuter`.
   * Make sure you have set an `onError` closure on the `request`. It might provide additional details in the error message about what went wrong.
+
+## Credits
+Special thanks from [Florian Rieger](https://github.com/florieger) to the people that helped getting ACInteractor together.
+- [Andreas Hager](https://github.com/casid) For inpiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
+- Victoria Gärtner For evaluating the Interactor-based architecture in several Objective-C and Swift projects.
+- [Aleksandar Damjanovic](https://github.com/codejanovic) For introducing me to the Github workflow.
+
+Happy Coding 🐳
