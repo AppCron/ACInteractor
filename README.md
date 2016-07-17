@@ -224,6 +224,9 @@ class LoginViewController: UIViewController {
 When executing an request make sure to set an closure for error handling on its **onError** property.
 
 ## Extended Completion Handlers
+It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as poperties to specific request or by subclassing **InteractorRequest**.
+
+**Be aware when adding custom error handlers.** ACInteractor uses the default **onError** closure to report internal errors, like not finding an interactor for a given request. See section "Troubleshooting" for Details.
 
 ## Asyncronous Requests
 
@@ -232,4 +235,3 @@ When executing an request make sure to set an closure for error handling on its 
 ## Unit-Testing
 
 ## Troubleshooting
-tbd
