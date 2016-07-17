@@ -234,7 +234,75 @@ Since ACInteractor uses closures for result handling, you can easily switch betw
 When making asychronous callbacks from your Interactor, it's recommend to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when and how to dispatch back to the caller's thread is a technical detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to disptach your asynchronous stuff back on the main thread. Maybe it can by done with `dispatch_async`, maybe `dispatch_sync` is neccessary, the ViewController can't know.
 
 ## Dependency Injection
+In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
+``` Swift
+protocol LoginWebservicePlugin
+class LoginHttpWebservicePlugin: LoginWebservicePlugin
+
+protocol UserEntityGateway
+class UserCoreDataEntityGateway: UserEntityGateway{
+```
+The **LoginWebservice** handles the webservice calls and calls the onCompletion closure once finished.
+
+The **UserEntityGateway** has functions to create new users and to save users. It is responsible for creating and saving new entites. So our **LoginInteractor** does not need to now how we presist data. It can be a CoreData-, a Realm- or just a In-Memory-Database.
+
+Additionally it is usefull to define a protocol for each dependency. This let's us replace them easily with mocks when writing unit tets.
+
+### On the Interactor Implementation
+``` Swift
+class LoginIntactor: Interactor {
+	private let webservicePlugin: LoginWebservicePlugin
+	private let userEntityGateway: UserEntityGateway
+
+	init(webservicePlugin: LoginWebservicePlugin, userEntityGateway: UserEntityGateway) {
+		self.webservicePlugin = webservicePlugin
+		self.userEntityGateway = userEntityGateway
+	}
+
+    func execute(request: Request) {
+    	...
+    	self.webservicePlugin.doStuff()
+    	self.userEntityGateway.doStudd()
+    	...
+    }
+}
+```
+ On the Interactor we need a custom **init** function that takes the dependencies as parameters and stores them in private properties. We can then use them in the *execute* function.
+
+### Register with Dependencies
+``` Swift
+class Logic {
+    
+    static let executer = InteractorExecuter()
+    
+    static func registerInteractors() {
+    	let webservicePlugin = LoginHttpWebservicePlugin()
+    	let userEntityGateway = UserCoreDataEntityGateway()
+
+        let loginInteractor = LoginIntactor(webservicePlugin: webservicePlugin, userEntityGateway: userEntityGateway)
+        let loginRequest = LoginIntactor.Request()
+        
+        executer.registerInteractor(loginInteractor, request: loginRequest)
+    }
+}
+```
+When registering the **LoginInteractor** we use the custom **init** method a supply the matching implementations. At this point you can easily replace the concrete implementations of the Plugin and the Gateway with other implementations as long as they conform to the specified protocols. For example the **UserCoreDataEntityGateway** could be replaced with a **UserInMemoryGateway**.
+
+### On the Execute Call
+``` Swift
+class LoginViewController: UIViewController {
+    ...
+    func login() {
+        let request = LoginIntactor.Request()
+       	...
+        Logic.executer.execute(request)
+    }
+}
+```
+Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecuter**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGatways and Plugins without breaking the API that is used by the caller.
 
 ## Unit-Testing
 
+
 ## Troubleshooting
+
