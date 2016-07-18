@@ -21,7 +21,7 @@ class LazyInteractor<InteractorType: Interactor>: Interactor {
     }
     
     func execute(request: InteractorType.Request) {
-        
+        self.getInteractor().execute(request)
     }
     
 }
