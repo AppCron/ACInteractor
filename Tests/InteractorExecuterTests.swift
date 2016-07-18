@@ -88,36 +88,35 @@ class InteractorTests: XCTestCase {
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
-}
-
-
-// MARK: Test Interactors
-
-class TestIntactor {
-    init() {
-        print("initT")
-    }
-    var numberOfExceuteCalls = 0
     
-    func testExecute() {
-        numberOfExceuteCalls += 1
-    }
-}
-
-class FirstInteractor: TestIntactor, Interactor {
-    class Request: InteractorRequest<NSString> {
+    // MARK: Test Interactors
+    
+    class TestInteractor {
+        var numberOfExceuteCalls = 0
+        
+        func testExecute() {
+            numberOfExceuteCalls += 1
+        }
     }
     
-    func execute(request: Request) {
-        self.testExecute()
-    }
-}
-
-class SecondInteractor: TestIntactor, Interactor {
-    class Request: InteractorRequest<NSString> {
+    class FirstInteractor: TestInteractor, Interactor {
+        class Request: InteractorRequest<NSString> {
+        }
+        
+        func execute(request: Request) {
+            self.testExecute()
+        }
     }
     
-    func execute(request: Request) {
-        self.testExecute()
+    class SecondInteractor: TestInteractor, Interactor {
+        class Request: InteractorRequest<NSString> {
+        }
+        
+        func execute(request: Request) {
+            self.testExecute()
+        }
     }
+    
 }
+
+
