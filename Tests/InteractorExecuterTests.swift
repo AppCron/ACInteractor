@@ -39,6 +39,7 @@ class InteractorTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
+        XCTAssert(firstInteractor.executedRequest === firstRequest)
     }
     
     func testExecute_withTwoInteractors_executeOnSecond_callsExecuteOnSecondInteractor() {
@@ -51,6 +52,7 @@ class InteractorTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
+        XCTAssert(secondInteractor.executedRequest === secondRequest)
     }
     
     func testExecute_withTwoInteractors_executeOnBoth_callsExecuteOnEachInteractor() {
@@ -64,7 +66,10 @@ class InteractorTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
+        XCTAssert(firstInteractor.executedRequest === firstRequest)
+        
         XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
+        XCTAssert(secondInteractor.executedRequest === secondRequest)
     }
     
     func testExecute_withUnknownRequest_callsErrorOnRequest() {
@@ -91,29 +96,29 @@ class InteractorTests: XCTestCase {
     
     // MARK: Test Interactors
     
-    class TestInteractor {
+   class FirstInteractor: Interactor {
         var numberOfExceuteCalls = 0
+        var executedRequest: Request?
         
-        func testExecute() {
-            numberOfExceuteCalls += 1
+        class Request: InteractorRequest<NSString> {
+        }
+        
+    func execute(request: Request) {
+        self.numberOfExceuteCalls += 1
+        self.executedRequest = request
         }
     }
     
-    class FirstInteractor: TestInteractor, Interactor {
+    class SecondInteractor: Interactor {
+        var numberOfExceuteCalls = 0
+        var executedRequest: Request?
+        
         class Request: InteractorRequest<NSString> {
         }
         
         func execute(request: Request) {
-            self.testExecute()
-        }
-    }
-    
-    class SecondInteractor: TestInteractor, Interactor {
-        class Request: InteractorRequest<NSString> {
-        }
-        
-        func execute(request: Request) {
-            self.testExecute()
+            self.numberOfExceuteCalls += 1
+            self.executedRequest = request
         }
     }
     
