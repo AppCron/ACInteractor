@@ -16,7 +16,7 @@ class InteractorTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        firstRequest.onError = { (error: InteractorError) -> Void in
+        firstRequest.onError = { [unowned self] (error: InteractorError) -> Void in
             self.errorMessageFromFirstRequest = error.message
         }
     }
