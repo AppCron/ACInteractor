@@ -8,7 +8,9 @@ public protocol ErrorHandler {
 public extension ErrorHandler where Self: Interactor {
     
     func handleError(request: ErrorRequest, error: ErrorType) {
-        
+        if let error = error as? InteractorError {
+            request.onError?(error)
+        }
     }
     
 }
