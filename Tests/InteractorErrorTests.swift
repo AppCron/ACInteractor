@@ -39,4 +39,12 @@ class InteractorErrorTests: XCTestCase {
         XCTAssertEqual(error.nsError, nsError)
     }
     
+    func testInit_withNsError_setsErrorCode() {
+        // Act
+        let error = InteractorError(error: nsError)
+        
+        // Assert
+        XCTAssertEqual(error.errorCode, 42)
+    }
+    
 }
