@@ -18,7 +18,7 @@ class ErrorHandlerExtensionTests: XCTestCase {
     
     // MARK: handleError()
     
-    func testHandleError_withInteractorError_callsOnError_wihtInteractorError() {
+    func testHandleError_withInteractorError_callsOnError_withInteractorError() {
         // Arrange
         let error = InteractorError(message: "TestError")
         
@@ -30,6 +30,20 @@ class ErrorHandlerExtensionTests: XCTestCase {
         XCTAssert(errorResponse === error)
     }
     
+    func testHandleError_withNsError_callsOnError_withWrappedNsError() {
+        // Arrange
+        let nsErrorMessage = "NSError Message"
+        let nsError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: nsErrorMessage])
+        
+        // Act
+        interactor.handleError(request, error: nsError)
+        
+        // Assert
+        let errorResponse = onErrorResponse as? InteractorError
+        XCTAssertEqual(errorResponse?.message, nsErrorMessage)
+        XCTAssert(errorResponse?.nsError === nsError)
+    }
+
     
     // MARK: Test Interactor
     
@@ -39,6 +53,12 @@ class ErrorHandlerExtensionTests: XCTestCase {
         
         func execute(request: Request) {
         }
+    }
+    
+    
+    // MARK: Test Error
+    
+    class TestError: ErrorType {
     }
         
 }
