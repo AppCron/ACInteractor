@@ -25,3 +25,12 @@ class LazyInteractor<InteractorType: Interactor>: Interactor {
     }
     
 }
+
+
+extension LazyInteractor: ErrorHandler {
+    
+    func handleError(request: ErrorRequest, error: ErrorType) {
+        self.getInteractor().handleError(request, error: error)
+    }
+    
+}

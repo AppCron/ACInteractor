@@ -15,6 +15,8 @@
 		173A77D21D3849E200FF88BA /* ACInteractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 173A77431D3849E100FF88BA /* ACInteractor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17567E551D3A61C900C464BB /* InteractorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17567E541D3A61C900C464BB /* InteractorError.swift */; };
 		17567E591D3A640000C464BB /* InteractorErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17567E581D3A640000C464BB /* InteractorErrorTests.swift */; };
+		1794818F1D57475000CA3590 /* ErrorHandlerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1794818E1D57475000CA3590 /* ErrorHandlerExtension.swift */; };
+		179481921D5749A800CA3590 /* ErrorHandlerExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179481901D57490900CA3590 /* ErrorHandlerExtensionTests.swift */; };
 		17B0BF701D3CD057004AA98B /* LazyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B0BF6F1D3CD057004AA98B /* LazyInteractor.swift */; };
 		17B0BF721D3CD0A9004AA98B /* LazyInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B0BF711D3CD0A9004AA98B /* LazyInteractorTests.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 		173A77D11D3849E200FF88BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17567E541D3A61C900C464BB /* InteractorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorError.swift; sourceTree = "<group>"; };
 		17567E581D3A640000C464BB /* InteractorErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorErrorTests.swift; sourceTree = "<group>"; };
+		1794818E1D57475000CA3590 /* ErrorHandlerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlerExtension.swift; sourceTree = "<group>"; };
+		179481901D57490900CA3590 /* ErrorHandlerExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlerExtensionTests.swift; sourceTree = "<group>"; };
 		17B0BF6F1D3CD057004AA98B /* LazyInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyInteractor.swift; sourceTree = "<group>"; };
 		17B0BF711D3CD0A9004AA98B /* LazyInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyInteractorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +94,7 @@
 				17567E541D3A61C900C464BB /* InteractorError.swift */,
 				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
 				17B0BF6F1D3CD057004AA98B /* LazyInteractor.swift */,
+				1794818E1D57475000CA3590 /* ErrorHandlerExtension.swift */,
 			);
 			name = Sources;
 			path = ../Sources;
@@ -101,6 +106,7 @@
 				173A77401D38461D00FF88BA /* InteractorExecuterTests.swift */,
 				17567E581D3A640000C464BB /* InteractorErrorTests.swift */,
 				17B0BF711D3CD0A9004AA98B /* LazyInteractorTests.swift */,
+				179481901D57490900CA3590 /* ErrorHandlerExtensionTests.swift */,
 			);
 			name = Tests;
 			path = ../Tests;
@@ -228,6 +234,7 @@
 				173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */,
 				173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */,
 				17B0BF701D3CD057004AA98B /* LazyInteractor.swift in Sources */,
+				1794818F1D57475000CA3590 /* ErrorHandlerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +244,7 @@
 			files = (
 				17B0BF721D3CD0A9004AA98B /* LazyInteractorTests.swift in Sources */,
 				173A77411D38461D00FF88BA /* InteractorExecuterTests.swift in Sources */,
+				179481921D5749A800CA3590 /* ErrorHandlerExtensionTests.swift in Sources */,
 				17567E591D3A640000C464BB /* InteractorErrorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

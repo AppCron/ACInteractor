@@ -60,13 +60,32 @@ class LazyInteractorTests: XCTestCase {
         XCTAssert(interactor.executedRequest === request)
     }
     
+    // MARK: handleError()
     
-    // MARK: Test Interactors
+    func testHandleError_callsHandleErrorOfInteractor() {
+        // Arrange
+        let request = TestInteractor.Request()
+        let error = InteractorError(message: "TestError")
+        
+        // Act
+        lazyInteractor.handleError(request, error: error)
+        
+        // Assert
+        let interactor = lazyInteractor.getInteractor()
+        XCTAssert(interactor.handledErrorRequest === request)
+        XCTAssert(interactor.handledError as? AnyObject === error)
+    }
+    
+    
+    // MARK: Test Interactor
     
     class TestInteractor: Interactor {
         let dependency: String
         var numberOfExceuteCalls = 0
         var executedRequest: Request?
+        
+        var handledErrorRequest: ErrorRequest?
+        var handledError: ErrorType?
         
         init(dependency: String) {
             self.dependency = dependency
@@ -78,6 +97,11 @@ class LazyInteractorTests: XCTestCase {
         func execute(request: Request) {
             self.numberOfExceuteCalls += 1
             self.executedRequest = request
+        }
+        
+        func handleError(request: ErrorRequest, error: ErrorType) {
+            self.handledErrorRequest = request
+            self.handledError = error
         }
     }
 
