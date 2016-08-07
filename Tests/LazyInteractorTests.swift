@@ -61,7 +61,7 @@ class LazyInteractorTests: XCTestCase {
     }
     
     
-    // MARK: Test Interactors
+    // MARK: Test Interactor
     
     class TestInteractor: Interactor {
         let dependency: String
