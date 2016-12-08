@@ -320,8 +320,8 @@ simulate, like a long taking webservice request or a full database.
 
 ## Credits
 Special thanks from [Florian Rieger](https://github.com/florieger) to the people that helped getting ACInteractor together.
-- [Andreas Hager](https://github.com/casid) For inspiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
-- Victoria Gärtner For evaluating the Interactor-based architecture in several Objective-C and Swift projects.
-- [Aleksandar Damjanovic](https://github.com/codejanovic) For introducing me to the Github workflow.
+- [Andreas Hager](https://github.com/casid) for inspiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
+- Victoria Gärtner for evaluating the Interactor-based architecture in several Objective-C and Swift projects.
+- [Aleksandar Damjanovic](https://github.com/codejanovic) for introducing me to the Github workflow.
 
 Happy Coding 🐳
