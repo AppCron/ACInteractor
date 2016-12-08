@@ -41,7 +41,7 @@ ACInteractor was build with TDD in mind. Each Interactor has a single execution 
 [Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0)
 
 ### Must watch
-If you're new to *Clean Code* and **TDD**, [Robert C. Martin's Talk at Ruby Midwest](https://www.youtube.com/watch?v=WpkDN78P884) is highly recommended. It's fun to watch and worth the time. The entire architecture around ACInteractor and the goals of it are based on this talk.
+If you're new to **Clean Code** and **TDD**, [Robert C. Martin's Talk at Ruby Midwest](https://www.youtube.com/watch?v=WpkDN78P884) is highly recommended. It's fun to watch and worth the time. The entire architecture around ACInteractor and the goals of it are based on this talk.
 
 ### Content
 ACInteractor currently consists of the following files:
@@ -181,7 +181,7 @@ class LoginViewController: UIViewController {
     }
 }
 ```
-To execute a *Request* you can simply call the **executeMethod()** on the **InteractorExecuter**. Just make sure you have registered the that Interactor class with its Request on the same **InteractorExecuter** instance.
+To execute a **Request** you can simply call the **executeMethod()** on the **InteractorExecuter**. Just make sure you have registered the that Interactor class with its Request on the same **InteractorExecuter** instance.
 
 In our example this instance is stored in the static **executer** property on the Logic class, as shown above.
 
