@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17223A171DF9C80000CF7F6F /* InteractorStatusGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17223A161DF9C80000CF7F6F /* InteractorStatusGateway.swift */; };
+		17223A191DF9CA3E00CF7F6F /* InteractorStatusInMemoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17223A181DF9CA3E00CF7F6F /* InteractorStatusInMemoryGateway.swift */; };
+		17223A1C1DFACC5200CF7F6F /* InteractorStatusInMemoryGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17223A1A1DF9CA7A00CF7F6F /* InteractorStatusInMemoryGatewayTests.swift */; };
 		173A77271D3842A200FF88BA /* ACInteractor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 173A771C1D3842A200FF88BA /* ACInteractor.framework */; };
 		173A773B1D3844D400FF88BA /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77371D3844D400FF88BA /* Interactor.swift */; };
 		173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A77381D3844D400FF88BA /* InteractorExecuter.swift */; };
@@ -32,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17223A161DF9C80000CF7F6F /* InteractorStatusGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorStatusGateway.swift; sourceTree = "<group>"; };
+		17223A181DF9CA3E00CF7F6F /* InteractorStatusInMemoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorStatusInMemoryGateway.swift; sourceTree = "<group>"; };
+		17223A1A1DF9CA7A00CF7F6F /* InteractorStatusInMemoryGatewayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorStatusInMemoryGatewayTests.swift; sourceTree = "<group>"; };
 		173A771C1D3842A200FF88BA /* ACInteractor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ACInteractor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		173A77261D3842A200FF88BA /* ACInteractorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACInteractorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		173A77371D3844D400FF88BA /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
@@ -95,6 +101,8 @@
 				173A77381D3844D400FF88BA /* InteractorExecuter.swift */,
 				17B0BF6F1D3CD057004AA98B /* LazyInteractor.swift */,
 				1794818E1D57475000CA3590 /* ErrorHandlerExtension.swift */,
+				17223A161DF9C80000CF7F6F /* InteractorStatusGateway.swift */,
+				17223A181DF9CA3E00CF7F6F /* InteractorStatusInMemoryGateway.swift */,
 			);
 			name = Sources;
 			path = ../Sources;
@@ -107,6 +115,7 @@
 				17567E581D3A640000C464BB /* InteractorErrorTests.swift */,
 				17B0BF711D3CD0A9004AA98B /* LazyInteractorTests.swift */,
 				179481901D57490900CA3590 /* ErrorHandlerExtensionTests.swift */,
+				17223A1A1DF9CA7A00CF7F6F /* InteractorStatusInMemoryGatewayTests.swift */,
 			);
 			name = Tests;
 			path = ../Tests;
@@ -230,7 +239,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				173A773B1D3844D400FF88BA /* Interactor.swift in Sources */,
+				17223A191DF9CA3E00CF7F6F /* InteractorStatusInMemoryGateway.swift in Sources */,
 				17567E551D3A61C900C464BB /* InteractorError.swift in Sources */,
+				17223A171DF9C80000CF7F6F /* InteractorStatusGateway.swift in Sources */,
 				173A773C1D3844D400FF88BA /* InteractorExecuter.swift in Sources */,
 				173A773D1D3844D400FF88BA /* InteractorRequest.swift in Sources */,
 				17B0BF701D3CD057004AA98B /* LazyInteractor.swift in Sources */,
@@ -246,6 +257,7 @@
 				173A77411D38461D00FF88BA /* InteractorExecuterTests.swift in Sources */,
 				179481921D5749A800CA3590 /* ErrorHandlerExtensionTests.swift in Sources */,
 				17567E591D3A640000C464BB /* InteractorErrorTests.swift in Sources */,
+				17223A1C1DFACC5200CF7F6F /* InteractorStatusInMemoryGatewayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
