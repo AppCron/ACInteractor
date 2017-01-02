@@ -35,7 +35,7 @@ Consumers, like ViewControllers, can easily execute **InteractorRequests** with 
 
 ACInteractor adds no constraints to dependency management.  It's up to you how to initialize your Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
 
-ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a defined request and response, a stateless implementation and injected dependencies. This helps writing isolated Unit Tests for each Interactor. See section "Unit Testing" for more details about writing tests.
+ACInteractor was built with TDD in mind. Each Interactor has a single execution function, a defined request and response, a stateless implementation and injected dependencies. This helps writing isolated Unit Tests for each Interactor. See section "Unit Testing" for more details about writing tests.
 
 ### License
 [Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0)
