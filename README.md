@@ -111,9 +111,9 @@ class LoginIntactor: Interactor {
     ...
 }
 ```
-The Response is the result of the Use Case. In our example it contains the username and a session token.
+The Response is the result of the Use Case. In our example, it contains the username and a session token.
 
-The Response can be of any type, as long as it is the same type the **InteractorRequest** is typed with. It can even be common type like **String** or **Bool**.
+The Response can be of any type, as long as it is the same type the **InteractorRequest** is typed with. It can even be a common type like **String** or **Bool**.
 
 ### The Execute Function
 ``` Swift
@@ -202,7 +202,7 @@ class LoginUserInteractor: Interactor {
     }
 }
 ```
- On the Interactor all you have to do is create an instance of **InteractorError**, supply an error message and call the error handler with the error object.
+On the Interactor all you have to do is create an instance of **InteractorError**, supply an error message and call the error handler with the error object.
 
 ### On the Execute Call
 ``` Swift
