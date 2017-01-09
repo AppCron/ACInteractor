@@ -13,16 +13,16 @@ ACInteractor is a Swift Package that supports a Use Case centric architecture an
 class LoginViewController: UIViewController {
     ...
     func login() {
-        let request = LoginIntactor.Request()
+        let request = LoginUserInteractor.Request()
         
         request.email = "first.last@appcron.com"
         request.password = "1234"
         
-        request.onComplete = { (response: LoginIntactor.Response) in
+        request.onComplete = { response in
             self.userLabel.text = response.username
         }
         
-        request.onError = { (error: InteractorError) in
+        request.onError = { error in
             self.displayError(error.message)
         }
         
@@ -72,22 +72,22 @@ Alternatively you can just download the files directly from Github and add the f
 
 ## Writing Interactors
 ``` Swift
-class LoginIntactor: Interactor {
+class LoginUserInteractor: Interactor {
     class Request: InteractorRequest<Response> {...}
     class Response {...}
     
     func execute(request: Request) {...}
 }
 ```
-Let's write our first Interactor. It should handle an user login and accepts all logins as long as the user provides a password.
+Let's write our first Interactor. It should handle a user login and accepts all logins as long as the user provides a password.
 
 Each Interactor has to implement the **Interactor** protocol, which requires the Interactor to have an **execute()** function. Since each Interactor handles exactly one Use Case, only one execute function is necessary.
 
-Usually it contains two nested classes. The Request and the Response.
+Usually, it contains two nested classes. The Request and the Response.
 
 ### The Request
 ``` Swift
-class LoginIntactor: Interactor {
+class LoginUserInteractor: Interactor {
     class Request: InteractorRequest<Response> {
       var email: String?
       var password: String?
@@ -117,7 +117,7 @@ The Response can be of any type, as long as it is the same type the **Interactor
 
 ### The Execute Function
 ``` Swift
-class LoginIntactor: Interactor {
+class LoginUserInteractor: Interactor {
 	...
     func execute(request: Request) {
         if (request.password?.characters.count > 0) {
@@ -149,8 +149,8 @@ class Logic {
     static let executer = InteractorExecuter()
     
     static func registerInteractors() {
-        let loginInteractor = LoginIntactor()
-        let loginRequest = LoginIntactor.Request()
+        let loginInteractor = LoginUserInteractor()
+        let loginRequest = LoginUserInteractor.Request()
         
         executer.registerInteractor(loginInteractor, request: loginRequest)
     }
@@ -168,12 +168,12 @@ Besides that, the **Logic** contains a static property with a global **Executer*
 class LoginViewController: UIViewController {
     ...
     func login() {
-        let request = LoginIntactor.Request()
+        let request = LoginUserInteractor.Request()
         
         request.email = "first.last@appcron.com"
         request.password = "1234"
         
-        request.onComplete = { (response: LoginIntactor.Response) in
+        request.onComplete = { (response: LoginUserInteractor.Response) in
             self.userLabel.text = response.username
         }
         
@@ -190,7 +190,7 @@ Basic error handling is already part of ACInteractor. Each **InteractorRequest**
 
 ### On the Interactor Implementation
 ``` Swift
-class LoginIntactor: Interactor {
+class LoginUserInteractor: Interactor {
 	...
     func execute(request: Request) {
         if (request.password?.characters.count > 0) {
@@ -209,7 +209,7 @@ class LoginIntactor: Interactor {
 class LoginViewController: UIViewController {
     ...
     func login() {
-        let request = LoginIntactor.Request()
+        let request = LoginUserInteractor.Request()
         
 		...
         
@@ -250,7 +250,7 @@ Additionally it is useful to define a protocol for each dependency. This let's u
 
 ### On the Interactor Implementation
 ``` Swift
-class LoginIntactor: Interactor {
+class LoginUserInteractor: Interactor {
 	private let webservicePlugin: LoginWebservicePlugin
 	private let userEntityGateway: UserEntityGateway
 
@@ -279,8 +279,8 @@ class Logic {
     	let webservicePlugin = LoginHttpWebservicePlugin()
     	let userEntityGateway = UserCoreDataEntityGateway()
 
-        let loginInteractor = LoginIntactor(webservicePlugin: webservicePlugin, userEntityGateway: userEntityGateway)
-        let loginRequest = LoginIntactor.Request()
+        let loginInteractor = LoginUserInteractor(webservicePlugin: webservicePlugin, userEntityGateway: userEntityGateway)
+        let loginRequest = LoginUserInteractor.Request()
         
         executer.registerInteractor(loginInteractor, request: loginRequest)
     }
@@ -293,7 +293,7 @@ When registering the **LoginInteractor** we use the custom **init** method to su
 class LoginViewController: UIViewController {
     ...
     func login() {
-        let request = LoginIntactor.Request()
+        let request = LoginUserInteractor.Request()
        	...
         Logic.executer.execute(request)
     }
