@@ -237,10 +237,10 @@ When making asynchronous callbacks from your Interactor, it's recommended to dis
 In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
 ``` Swift
 protocol LoginWebservicePlugin
-class LoginHttpWebservicePlugin: LoginWebservicePlugin
+class LoginHttpWebservicePlugin: LoginWebservicePlugin { }
 
 protocol UserEntityGateway
-class UserCoreDataEntityGateway: UserEntityGateway{
+class UserCoreDataEntityGateway: UserEntityGateway { }
 ```
 The **LoginWebservice** handles the webservice calls and calls the onCompletion closure once finished.
 
