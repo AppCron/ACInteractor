@@ -224,7 +224,7 @@ class LoginViewController: UIViewController {
 When executing a request make sure to set a closure for error handling on its **onError** property.
 
 ## Extended Completion Handlers
-It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as properties to specific request or by subclassing **InteractorRequest**.
+It is not necessary to use the default completion and error handlers. You can add custom completion closures, like **onUpdate(UpdateResponse)**, or custom error closures, like **onExtendedError(ExtendedError)**. This can be either done by adding them as properties to a specific request or by subclassing **InteractorRequest**.
 
 **Be aware when adding custom error handlers.** ACInteractor uses the default **onError** closure to report internal errors, like not finding an Interactor for a given request. See section "Troubleshooting" for Details.
 
@@ -236,13 +236,13 @@ When making asynchronous callbacks from your Interactor, it's recommended to dis
 ## Dependency Injection
 In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
 ``` Swift
-protocol LoginWebservicePlugin
-class LoginHttpWebservicePlugin: LoginWebservicePlugin { }
+protocol WebservicePlugin
+class HttpWebservicePlugin: WebservicePlugin { }
 
 protocol UserEntityGateway
-class UserCoreDataEntityGateway: UserEntityGateway { }
+class UserCoreDataGateway: UserEntityGateway { }
 ```
-The **LoginWebservice** handles the webservice calls and calls the onCompletion closure once finished.
+The **WebservicePlugin** handles the webservice calls and calls the onCompletion closure once finished.
 
 The **UserEntityGateway** has functions to create new users and to save users. It is responsible for creating and saving new entities. So our **LoginInteractor** does not need to now how we persist data. It can be a CoreData-, a Realm- or just an In-Memory-Database.
 
@@ -251,12 +251,12 @@ Additionally it is useful to define a protocol for each dependency. This let's u
 ### On the Interactor Implementation
 ``` Swift
 class LoginUserInteractor: Interactor {
-	private let webservicePlugin: LoginWebservicePlugin
-	private let userEntityGateway: UserEntityGateway
+	private let webservicePlugin: WebservicePlugin
+	private let userGateway: UserEntityGateway
 
-	init(webservicePlugin: LoginWebservicePlugin, userEntityGateway: UserEntityGateway) {
+	init(webservicePlugin: WebservicePlugin, userGateway: UserEntityGateway) {
 		self.webservicePlugin = webservicePlugin
-		self.userEntityGateway = userEntityGateway
+		self.userGateway = userGateway
 	}
 
     func execute(request: Request) {
@@ -276,10 +276,10 @@ class Logic {
     static let executer = InteractorExecuter()
     
     static func registerInteractors() {
-    	let webservicePlugin = LoginHttpWebservicePlugin()
-    	let userEntityGateway = UserCoreDataEntityGateway()
+    	let webservicePlugin = HttpWebservicePlugin()
+    	let userGateway = UserCoreDataGateway()
 
-        let loginInteractor = LoginUserInteractor(webservicePlugin: webservicePlugin, userEntityGateway: userEntityGateway)
+        let loginInteractor = LoginUserInteractor(webservicePlugin: webservicePlugin, userGateway: userGateway)
         let loginRequest = LoginUserInteractor.Request()
         
         executer.registerInteractor(loginInteractor, request: loginRequest)
