@@ -231,10 +231,10 @@ It is not necessary to use the default completion and error handlers. You can ad
 ## Asynchronous Requests
 Since ACInteractor uses closures for result handling, you can easily switch between synchronous and asynchronous behavior without the need to adjust your Interactor's interface. 
 
-When making asynchronous callbacks from your Interactor, it's recommended to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when or how to dispatch back to the caller's thread is a technical detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to dispatch your asynchronous stuff back on the main thread. Maybe it can be done with `dispatch_async`, maybe `dispatch_sync` is necessary, the ViewController can't know.
+When making asynchronous callbacks from your Interactor, it's recommended to dispatch your **onCompletion** and **onError** closure calls to the thread the Interactor's **execute()** method has been called from. Whether to use background threads and when or how to dispatch back to the caller's thread is an implementation detail of your Interactor, that should be hidden from the caller. It is not the responsibility of a ViewController to dispatch your asynchronous stuff back on the main thread. Maybe it can be done with `dispatch_async`, maybe `dispatch_sync` is necessary, the ViewController can't know.
 
 ## Dependency Injection
-In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
+In a real world example the LoginInteractor would call a webservice to verify the login credentials and store the session token in a local database. Since we don't want all these technical details in our Interactor we encapsulate them in two separate classes.
 ``` Swift
 protocol WebservicePlugin
 class HttpWebservicePlugin: WebservicePlugin { }
@@ -246,13 +246,13 @@ The **WebservicePlugin** handles the webservice calls and calls the onCompletion
 
 The **UserEntityGateway** has functions to create new users and to save users. It is responsible for creating and saving new entities. So our **LoginInteractor** does not need to now how we persist data. It can be a CoreData-, a Realm- or just an In-Memory-Database.
 
-Additionally it is useful to define a protocol for each dependency. This let's us replace them easily with mocks when writing unit tests.
+Additionally it is useful to define a protocol for each dependency. This lets us replace them easily with mocks when writing unit tests.
 
 ### On the Interactor Implementation
 ``` Swift
 class LoginUserInteractor: Interactor {
-	private let webservicePlugin: WebservicePlugin
-	private let userGateway: UserEntityGateway
+	let webservicePlugin: WebservicePlugin
+	let userGateway: UserEntityGateway
 
 	init(webservicePlugin: WebservicePlugin, userGateway: UserEntityGateway) {
 		self.webservicePlugin = webservicePlugin
@@ -267,7 +267,7 @@ class LoginUserInteractor: Interactor {
     }
 }
 ```
-On the Interactor we need a custom **init** function that takes the dependencies as parameters and stores them in private properties. We can then use them in the *execute* function.
+On the Interactor we need a custom **init** function that takes the dependencies as parameters and stores them in properties. We can then use them in the *execute* function.
 
 ### Register with Dependencies
 ``` Swift
