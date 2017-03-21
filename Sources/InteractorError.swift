@@ -1,10 +1,10 @@
 import Foundation
 
-public class InteractorError: ErrorType {
+open class InteractorError: Error {
     
-    public var message: String
-    public var errorCode = 0
-    public var nsError: NSError?
+    open var message: String
+    open var errorCode = 0
+    open var nsError: NSError?
     
     public init(message:String) {
         self.message = message

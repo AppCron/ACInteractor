@@ -5,13 +5,13 @@ class ErrorHandlerExtensionTests: XCTestCase {
     
     let interactor = TestInteractor()
     let request = TestInteractor.Request()
-    var onErrorResponse: ErrorType?
+    var onErrorResponse: Error?
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        request.onError = { [unowned self] (error: ErrorType) in
+        request.onError = { [unowned self] (error: Error) in
             self.onErrorResponse = error
         }
     }
@@ -51,14 +51,14 @@ class ErrorHandlerExtensionTests: XCTestCase {
         class Request: InteractorRequest<Void> {
         }
         
-        func execute(request: Request) {
+        func execute(_ request: Request) {
         }
     }
     
     
     // MARK: Test Error
     
-    class TestError: ErrorType {
+    class TestError: Error {
     }
         
 }
