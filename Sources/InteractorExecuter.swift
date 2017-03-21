@@ -1,22 +1,22 @@
 import Foundation
 
-public class InteractorExecuter {
+open class InteractorExecuter {
     
-    private var interactors = Dictionary<String, AnyObject>()
+    fileprivate var interactors = Dictionary<String, AnyObject>()
     
     // MARK: Register
     
-    public func registerInteractor<InteractorProtocol: Interactor, Response>
-        (interactor: InteractorProtocol, request: InteractorRequest<Response>)
+    open func registerInteractor<InteractorProtocol: Interactor, Response>
+        (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
-        let key = String(request)
+        let key = String(describing: request)
         self.interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
     // MARK: Execute
     
-    public func execute<Request: ErrorRequest>(request: Request) {
-        let key = String(request)
+    open func execute<Request: ErrorRequest>(_ request: Request) {
+        let key = String(describing: request)
         let optionalValue = interactors[key]
         
         guard let value = optionalValue else {
@@ -34,17 +34,17 @@ public class InteractorExecuter {
     
     // MARK: Error Handling
     
-    private func fireErrorOnRequest(request: ErrorRequest, errorMessage: String) {
+    fileprivate func fireErrorOnRequest(_ request: ErrorRequest, errorMessage: String) {
         let error = InteractorError(message: errorMessage)
         request.onError?(error)
     }
     
-    private func fireIntactorNotRegisterdError(request: ErrorRequest) {
+    fileprivate func fireIntactorNotRegisterdError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
         self.fireErrorOnRequest(request, errorMessage: message)
     }
     
-    private func fireIntactorMismatchError(request: ErrorRequest) {
+    fileprivate func fireIntactorMismatchError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
         self.fireErrorOnRequest(request, errorMessage: message)
     }
@@ -62,15 +62,15 @@ public class InteractorExecuter {
 
 private class InteractorWrapper<Request> {
     
-    let executeClosure: Request -> Void
+    let executeClosure: (Request) -> Void
     let wrappedInteractor: AnyObject
     
-    init<I: Interactor where I.Request == Request>(interactor: I) {
+    init<I: Interactor>(interactor: I) where I.Request == Request {
         self.executeClosure = interactor.execute
         self.wrappedInteractor = interactor
     }
     
-    func execute(request: Request) {
+    func execute(_ request: Request) {
         executeClosure(request)
     }
     

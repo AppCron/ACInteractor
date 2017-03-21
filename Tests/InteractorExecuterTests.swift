@@ -103,7 +103,7 @@ class InteractorTests: XCTestCase {
         class Request: InteractorRequest<NSString> {
         }
         
-    func execute(request: Request) {
+    func execute(_ request: Request) {
         self.numberOfExceuteCalls += 1
         self.executedRequest = request
         }
@@ -116,7 +116,7 @@ class InteractorTests: XCTestCase {
         class Request: InteractorRequest<NSString> {
         }
         
-        func execute(request: Request) {
+        func execute(_ request: Request) {
             self.numberOfExceuteCalls += 1
             self.executedRequest = request
         }
