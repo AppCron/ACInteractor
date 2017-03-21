@@ -73,7 +73,7 @@ class LazyInteractorTests: XCTestCase {
         // Assert
         let interactor = lazyInteractor.getInteractor()
         XCTAssert(interactor.handledErrorRequest === request)
-        XCTAssert(interactor.handledError as? AnyObject === error)
+        XCTAssert(interactor.handledError as AnyObject === error)
     }
     
     

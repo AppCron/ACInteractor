@@ -10,7 +10,7 @@ class InteractorTests: XCTestCase {
     let firstRequest = FirstInteractor.Request()
     let secondRequest = SecondInteractor.Request()
     
-    var errorMessageFromFirstRequest: NSString?
+    var errorMessageFromFirstRequest: String?
     
     override func setUp() {
         super.setUp()
