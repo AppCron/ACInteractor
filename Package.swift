@@ -1,5 +1,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "ACInteractor"
+    name: "ACInteractor",
+    dependencies : [],
+    exclude: ["Tests"]
 )
