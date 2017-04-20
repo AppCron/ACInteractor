@@ -4,7 +4,7 @@
 Swift Package for a Use Case centric architecture as proposed by Robert C. Martin and others.
 
 ## Overview
-ACInteractor is a Swift Package that supports a Use Case centric architecture and TDD in Swift projects. The basic idea is that one Use Case, and only one Use Case, is executed by a single class. As proposed by Robert C. Martin, these kind of classes are called Interactors.
+ACInteractor is a [Swift Package](https://swift.org/package-manager/) that supports a Use Case centric architecture and TDD in Swift projects. The basic idea is that one Use Case, and only one Use Case, is executed by a single class. As proposed by Robert C. Martin, these kind of classes are called Interactors.
 - Each Interactor has a Request model.
 - Each Interactor has a Response model.
 - Each Interactor has an Execute function that takes the Request model and returns the Response model.
@@ -50,15 +50,14 @@ ACInteractor
 ├── LICENSE
 ├── README.md
 ├── Sources     // The source files
-├── Tests       // The unit test files
-└── Xcode       // The Xcode project to run the test
+└── Tests       // The unit test files
 ```
 
 ## Setup
-Since Swift 3 and Swift Package are not available with a stable Xcode release, just add the Files of the **Sources** folder to your project.
+Since [Swift Package](https://swift.org/package-manager/) is not supporting iOS Xcode projects yet, it's recommended to add the files of the **Sources** folder directly to your project.
 
 ### via Git Submodule
-At the moment it's recommended to add the entire ACInteractor project as a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to your repository.
+You can add the entire ACInteractor project as a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to your repository.
 
 0. Navigate to the root directory of your Git repository in Terminal.
 0. Run the following command:  
@@ -68,7 +67,15 @@ At the moment it's recommended to add the entire ACInteractor project as a [Git 
 0. Add the files of the **Sources** folder to your project.
 
 ### via Download
-Alternatively you can just download the files directly from Github and add the files of the *Sources* folder to your project.
+Alternatively you can just download the files directly from Github and add the files of the **Sources** folder to your project.
+
+### as Swift Package Dependency
+You can also add it as [Swift Package](https://swift.org/package-manager/) Dependency to another Swift Package.
+``` Swift
+dependencies: [
+    .Package(url: "https://github.com/AppCron/ACInteractor.git", majorVersion: 0)
+]
+```
 
 ## Writing Interactors
 ``` Swift
