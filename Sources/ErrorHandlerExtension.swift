@@ -7,6 +7,7 @@ public protocol ErrorHandler {
 
 public extension ErrorHandler where Self: Interactor {
     
+    @available(*, deprecated)
     func handleError(_ request: ErrorRequest, error: Error) {
         let error = error as InteractorError
         request.onError?(error)
