@@ -40,8 +40,7 @@ class ErrorHandlerExtensionTests: XCTestCase {
         
         // Assert
         let errorResponse = onErrorResponse as? InteractorError
-        XCTAssertEqual(errorResponse?.message, nsErrorMessage)
-        XCTAssert(errorResponse?.nsError === nsError)
+        XCTAssert(errorResponse === nsError)
     }
 
     

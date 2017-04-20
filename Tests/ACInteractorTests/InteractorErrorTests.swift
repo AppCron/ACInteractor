@@ -4,47 +4,42 @@ import XCTest
 class InteractorErrorTests: XCTestCase {
     
     let errorMessage = "errorMessage"
-    var nsError: NSError!
+    var testError: NSError?
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        self.nsError = NSError(domain: "com.appcron", code: 42, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+        self.testError = NSError(domain: "com.appcron", code: 42, userInfo: [NSLocalizedDescriptionKey: errorMessage])
     }
     
-    // MARK: init
+    // MARK: - Init
     
-    func testInit_withMessage_setsMessage() {
+    func testInit_withMessage_setsMessageAsLocalizedDescription() {
         // Act
         let error = InteractorError(message: errorMessage)
         
         // Assert
-        XCTAssertEqual(error.message, errorMessage)
+        XCTAssertEqual(error.localizedDescription, errorMessage)
+        XCTAssertEqual(error.userInfo[NSLocalizedDescriptionKey] as? String, errorMessage)
     }
     
-    func testInit_withNsError_setsMessage() {
+    func testInit_withCode_setsCode() {
         // Act
-        let error = InteractorError(error: nsError)
+        let error = InteractorError(message: "", code: 42)
         
         // Assert
-        XCTAssertEqual(error.message, errorMessage)
+        XCTAssertEqual(error.code, 42)
     }
     
-    func testInit_withNsError_setsNsError() {
-        // Act
-        let error = InteractorError(error: nsError)
-        
-        // Assert
-        XCTAssertEqual(error.nsError, nsError)
-    }
+    // MARK: - Message
     
-    func testInit_withNsError_setsErrorCode() {
+    func testMessage_returnsLocalizedDescription() {
         // Act
-        let error = InteractorError(error: nsError)
+        let message = testError?.message
         
         // Assert
-        XCTAssertEqual(error.errorCode, 42)
+        XCTAssertEqual(message, "errorMessage")
     }
     
 }

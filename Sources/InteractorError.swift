@@ -1,19 +1,19 @@
 import Foundation
 
-open class InteractorError: Error {
+typealias InteractorError = NSError
+
+public extension InteractorError {
     
-    open var message: String
-    open var errorCode = 0
-    open var nsError: NSError?
-    
-    public init(message:String) {
-        self.message = message
+    public convenience init(message: String, code: Int = 0) {
+        var infoDict = [String : Any]()
+        infoDict[NSLocalizedDescriptionKey] = message
+        self.init(domain: "com.appcron.acinteractor", code: code, userInfo: infoDict)
     }
     
-    public init(error:NSError) {
-        self.message = error.localizedDescription
-        self.errorCode = error.code
-        self.nsError = error
+    public var message: String {
+        get {
+            return userInfo[NSLocalizedDescriptionKey] as? String ?? ""
+        }
     }
     
 }
