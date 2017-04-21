@@ -43,6 +43,45 @@ class MutableInteractorErrorTests: XCTestCase {
         XCTAssertEqual(error.dict["key2"] as? Int, 2)
     }
     
+    // MARK: - Init with Error
+    
+    func testInit_withNsError_copiesValuesFromNsError() {
+        // Arrange
+        let userInfo: [String: Any] = [NSLocalizedDescriptionKey: "localizedTestDescription", "key2": 2]
+        let nsError = NSError(domain: "nserror.domain", code: 13, userInfo: userInfo)
+        
+        // Act
+        let error = MutableInteractorError(error: nsError)
+        
+        // Assert
+        XCTAssertEqual(error.message, nsError.message)
+        XCTAssertEqual(error.localizedDescription, nsError.localizedDescription)
+        
+        XCTAssertEqual(error.code, nsError.code)
+        XCTAssertEqual(error.domain, nsError.domain)
+        
+        XCTAssertEqual(error.userInfo[NSLocalizedDescriptionKey] as? String, "localizedTestDescription")
+        XCTAssertEqual(error.userInfo["key2"] as? Int, 2)
+    }
+
+    func testInit_withInteractorError_copiesValuesFromInteractorError() {
+        // Arrange
+        let interactorError = InteractorError(message: "testMessage", code: 42, dict: testErrorDict)
+        
+        // Act
+        let error = MutableInteractorError(error: interactorError)
+        
+        // Assert
+        XCTAssertEqual(error.message, interactorError.message)
+        XCTAssertEqual(error.localizedDescription, interactorError.localizedDescription)
+        
+        XCTAssertEqual(error.code, interactorError.code)
+        XCTAssertEqual(error.domain, interactorError.domain)
+        
+        XCTAssertEqual(error.dict["key1"] as? String, "value1")
+        XCTAssertEqual(error.dict["key2"] as? Int, 2)
+    }
+    
     // MARK: - Setters
     
     func testSetMessage_setsMessage() {

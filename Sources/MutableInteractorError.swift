@@ -27,6 +27,13 @@ public class MutableInteractorError: InteractorError {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public init(error: NSError) {
+        mutableMessage = error.localizedDescription
+        mutableCode = error.code
+        mutableDict = error.dict
+        super.init(domain: error.domain, code: error.code, userInfo: error.userInfo)
+    }
+    
     // MARK: - Getter & Setter
     
     public override var message: String {
