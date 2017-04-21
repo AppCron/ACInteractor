@@ -1,6 +1,8 @@
 import XCTest
 @testable import ACInteractor
 
+@available(*, deprecated)
+
 class ErrorHandlerExtensionTests: XCTestCase {
     
     let interactor = TestInteractor()
