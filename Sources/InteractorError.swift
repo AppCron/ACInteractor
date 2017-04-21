@@ -1,19 +1,45 @@
 import Foundation
 
-open class InteractorError: Error {
+public typealias InteractorError = NSError
+
+public extension InteractorError {
     
-    open var message: String
-    open var errorCode = 0
-    open var nsError: NSError?
+    private static let dictKey = "InteractorErrorDictKey"
     
-    public init(message:String) {
-        self.message = message
+    // MARK: - Init
+    
+    public convenience init(message: String, code: Int, dict: [String: Any]) {
+        var infoDict = [String : Any]()
+        infoDict[NSLocalizedDescriptionKey] = message
+        infoDict[InteractorError.dictKey] = dict
+        self.init(domain: "com.appcron.acinteractor", code: code, userInfo: infoDict)
     }
     
-    public init(error:NSError) {
-        self.message = error.localizedDescription
-        self.errorCode = error.code
-        self.nsError = error
+    public convenience init(message: String, code: Int) {
+        self.init(message: message, code: code, dict: [String: Any]())
+    }
+    
+    public convenience init(message: String) {
+        self.init(message: message, code: 0)
+    }
+    
+    // MARK: - Message
+    
+    public var message: String {
+        get {
+            return userInfo[NSLocalizedDescriptionKey] as? String ?? ""
+        }
+    }
+    
+    // MARK: - Error Dict
+    
+    public var dict: [String: Any] {
+        get {
+            guard let dict = userInfo[InteractorError.dictKey] as? [String: Any] else {
+                return [String: Any]()
+            }
+            return dict
+        }
     }
     
 }

@@ -1,6 +1,8 @@
 import XCTest
 @testable import ACInteractor
 
+@available(*, deprecated)
+
 class ErrorHandlerExtensionTests: XCTestCase {
     
     let interactor = TestInteractor()
@@ -40,8 +42,7 @@ class ErrorHandlerExtensionTests: XCTestCase {
         
         // Assert
         let errorResponse = onErrorResponse as? InteractorError
-        XCTAssertEqual(errorResponse?.message, nsErrorMessage)
-        XCTAssert(errorResponse?.nsError === nsError)
+        XCTAssert(errorResponse === nsError)
     }
 
     
