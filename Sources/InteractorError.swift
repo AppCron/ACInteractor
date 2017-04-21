@@ -1,6 +1,6 @@
 import Foundation
 
-typealias InteractorError = NSError
+public typealias InteractorError = NSError
 
 public extension InteractorError {
     
