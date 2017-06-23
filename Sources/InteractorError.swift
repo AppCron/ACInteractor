@@ -27,7 +27,9 @@ public extension InteractorError {
     
     public var message: String {
         get {
-            return userInfo[NSLocalizedDescriptionKey] as? String ?? ""
+            // Use localizedDescription instead in infoDict,
+            // since some CoreData error have a localizedDescription but no entry in the dictionary.
+            return localizedDescription
         }
     }
     
