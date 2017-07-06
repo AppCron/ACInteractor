@@ -59,12 +59,12 @@ Since [Swift Package](https://swift.org/package-manager/) is not supporting iOS 
 ### via Git Submodule
 You can add the entire ACInteractor project as a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to your repository.
 
-0. Navigate to the root directory of your Git repository in Terminal.
-0. Run the following command:  
+1. Navigate to the root directory of your Git repository in Terminal.
+2. Run the following command:  
   ```
   git submodule add https://github.com/AppCron/ACInteractor.git
   ```
-0. Add the files of the **Sources** folder to your project.
+3. Add the files of the **Sources** folder to your project.
 
 ### via Download
 Alternatively you can just download the files directly from Github and add the files of the **Sources** folder to your project.
@@ -76,6 +76,10 @@ dependencies: [
     .Package(url: "https://github.com/AppCron/ACInteractor.git", majorVersion: 0)
 ]
 ```
+
+### Terminal Commands
+You can run the tests directly from the command line with `swift test`.  
+To create an Xcode project use `swift package generate-xcodeproj`.
 
 ## Writing Interactors
 ``` Swift
@@ -328,7 +332,7 @@ simulate, like a long taking webservice request or a full database.
 ## Credits
 Special thanks from [Florian Rieger](https://github.com/florieger) to the people that helped getting ACInteractor together.
 - [Andreas Hager](https://github.com/casid) for inspiring me with the wonderful [JUsecase](https://github.com/casid/jusecase) and helping with an initial Swift version of it.
-- Victoria Gärtner for evaluating the Interactor-based architecture in several Objective-C and Swift projects.
+- [Victoria Teufel](https://teufel-it.de) for evaluating the Interactor-based architecture in several Objective-C and Swift projects.
 - [Aleksandar Damjanovic](https://github.com/codejanovic) for introducing me to the Github workflow.
 
 Happy Coding 🐳
