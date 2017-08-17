@@ -56,10 +56,4 @@ class ErrorHandlerExtensionTests: XCTestCase {
         }
     }
     
-    
-    // MARK: Test Error
-    
-    class TestError: Error {
-    }
-        
 }
