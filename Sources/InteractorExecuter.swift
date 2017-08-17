@@ -10,7 +10,7 @@ open class InteractorExecuter {
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
         let key = String(describing: request)
-        self.interactors[key] = InteractorWrapper(interactor: interactor)
+        interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
     // MARK: Execute
@@ -20,12 +20,12 @@ open class InteractorExecuter {
         let optionalValue = interactors[key]
         
         guard let value = optionalValue else {
-            self.fireIntactorNotRegisterdError(request)
+            fireIntactorNotRegisterdError(request)
             return
         }
         
         guard let wrapper = value as? InteractorWrapper<Request> else {
-            self.fireIntactorMismatchError(request)
+            fireIntactorMismatchError(request)
             return
         }
         
@@ -41,12 +41,12 @@ open class InteractorExecuter {
     
     fileprivate func fireIntactorNotRegisterdError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
-        self.fireErrorOnRequest(request, errorMessage: message)
+        fireErrorOnRequest(request, errorMessage: message)
     }
     
     fileprivate func fireIntactorMismatchError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
-        self.fireErrorOnRequest(request, errorMessage: message)
+        fireErrorOnRequest(request, errorMessage: message)
     }
     
 }
