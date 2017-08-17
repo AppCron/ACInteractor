@@ -2,7 +2,7 @@ import Foundation
 
 class InteractorStatusInMemoryGateway: InteractorStatusGateway {
     
-    fileprivate var running = false
+    private var running = false
     
     func isRunning() -> Bool {
         return running

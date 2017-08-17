@@ -1,12 +1,12 @@
 import Foundation
 
-open class InteractorExecuter {
+class InteractorExecuter {
     
-    fileprivate var interactors = Dictionary<String, AnyObject>()
+    private var interactors = Dictionary<String, AnyObject>()
     
     // MARK: Register
     
-    open func registerInteractor<InteractorProtocol: Interactor, Response>
+    func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
         let key = String(describing: request)
@@ -15,7 +15,7 @@ open class InteractorExecuter {
     
     // MARK: Execute
     
-    open func execute<Request: ErrorRequest>(_ request: Request) {
+    func execute<Request: ErrorRequest>(_ request: Request) {
         let key = String(describing: request)
         let optionalValue = interactors[key]
         
@@ -34,17 +34,17 @@ open class InteractorExecuter {
     
     // MARK: Error Handling
     
-    fileprivate func fireErrorOnRequest(_ request: ErrorRequest, errorMessage: String) {
+    private func fireErrorOnRequest(_ request: ErrorRequest, errorMessage: String) {
         let error = InteractorError(message: errorMessage)
         request.onError?(error)
     }
     
-    fileprivate func fireIntactorNotRegisterdError(_ request: ErrorRequest) {
+    private func fireIntactorNotRegisterdError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
         fireErrorOnRequest(request, errorMessage: message)
     }
     
-    fileprivate func fireIntactorMismatchError(_ request: ErrorRequest) {
+    private func fireIntactorMismatchError(_ request: ErrorRequest) {
         let message = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
         fireErrorOnRequest(request, errorMessage: message)
     }
