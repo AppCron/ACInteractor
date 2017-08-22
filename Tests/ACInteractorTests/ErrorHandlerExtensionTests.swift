@@ -28,7 +28,7 @@ class ErrorHandlerExtensionTests: XCTestCase {
         interactor.handleError(request, error: error)
         
         // Assert
-        let errorResponse = onErrorResponse as? InteractorError
+        let errorResponse = onErrorResponse as InteractorError?
         XCTAssert(errorResponse === error)
     }
     
@@ -41,7 +41,7 @@ class ErrorHandlerExtensionTests: XCTestCase {
         interactor.handleError(request, error: nsError)
         
         // Assert
-        let errorResponse = onErrorResponse as? InteractorError
+        let errorResponse = onErrorResponse as InteractorError?
         XCTAssert(errorResponse === nsError)
     }
 
@@ -56,10 +56,4 @@ class ErrorHandlerExtensionTests: XCTestCase {
         }
     }
     
-    
-    // MARK: Test Error
-    
-    class TestError: Error {
-    }
-        
 }

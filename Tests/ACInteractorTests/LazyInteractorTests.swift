@@ -95,13 +95,13 @@ class LazyInteractorTests: XCTestCase {
         }
     
         func execute(_ request: Request) {
-            self.numberOfExceuteCalls += 1
-            self.executedRequest = request
+            numberOfExceuteCalls += 1
+            executedRequest = request
         }
         
         func handleError(_ request: ErrorRequest, error: Error) {
-            self.handledErrorRequest = request
-            self.handledError = error
+            handledErrorRequest = request
+            handledError = error
         }
     }
 
