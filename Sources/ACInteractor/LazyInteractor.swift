@@ -3,9 +3,9 @@ import Foundation
 class LazyInteractor<InteractorType: Interactor>: Interactor {
     
     private(set) var lazyInstance: InteractorType?
-    private let factory: ((Void) -> InteractorType)
+    private let factory: (() -> InteractorType)
     
-    init(factory: @escaping ((Void) -> InteractorType)) {
+    init(factory: @escaping (() -> InteractorType)) {
         self.factory = factory
     }
     
