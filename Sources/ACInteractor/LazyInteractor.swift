@@ -1,15 +1,15 @@
 import Foundation
 
-class LazyInteractor<InteractorType: Interactor>: Interactor {
+public class LazyInteractor<InteractorType: Interactor>: Interactor {
     
     private(set) var lazyInstance: InteractorType?
-    private let factory: ((Void) -> InteractorType)
+    private let factory: (() -> InteractorType)
     
-    init(factory: @escaping ((Void) -> InteractorType)) {
+    public init(factory: @escaping (() -> InteractorType)) {
         self.factory = factory
     }
     
-    func getInteractor() -> InteractorType {
+    public func getInteractor() -> InteractorType {
         if let instance = lazyInstance {
             return instance
         }
@@ -20,7 +20,7 @@ class LazyInteractor<InteractorType: Interactor>: Interactor {
         return instance
     }
     
-    func execute(_ request: InteractorType.Request) {
+    public func execute(_ request: InteractorType.Request) {
         getInteractor().execute(request)
     }
     
@@ -29,7 +29,7 @@ class LazyInteractor<InteractorType: Interactor>: Interactor {
 
 extension LazyInteractor: ErrorHandler {
     
-    func handleError(_ request: ErrorRequest, error: Error) {
+    public func handleError(_ request: ErrorRequest, error: Error) {
         getInteractor().handleError(request, error: error)
     }
     

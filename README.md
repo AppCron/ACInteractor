@@ -1,5 +1,5 @@
 # ACInteractor
-[![License](https://img.shields.io/badge/swift-3.1-orange.svg)](https://swift.org/blog/swift-3-1-released/)
+[![License](https://img.shields.io/badge/swift-4.0-orange.svg)](https://swift.org)
 [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/appcron/acinteractor/master/LICENSE)
 
 Swift Package for a Use Case centric architecture as proposed by Robert C. Martin and others.
@@ -49,13 +49,14 @@ ACInteractor currently consists of the following files:
 ```
 ACInteractor
 ├── LICENSE
+├── Package.swift   // The Swift Package description
 ├── README.md
-├── Sources     // The source files
-└── Tests       // The unit test files
+├── Sources         // The source files
+└── Tests           // The unit test files
 ```
 
 ## Setup
-Since [Swift Package](https://swift.org/package-manager/) is not supporting iOS Xcode projects yet, it's recommended to add the files of the **Sources** folder directly to your project.
+Since [Swift Package](https://swift.org/package-manager/) is not supporting iOS Xcode projects yet, it's recommended to add the files of the **Sources/ACInteractor** folder directly to your project.
 
 ### via Git Submodule
 You can add the entire ACInteractor project as a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to your repository.
@@ -65,7 +66,7 @@ You can add the entire ACInteractor project as a [Git Submodule](https://git-scm
   ```
   git submodule add https://github.com/AppCron/ACInteractor.git
   ```
-3. Add the files of the **Sources** folder to your project.
+3. Add the files of the **Sources/ACInteractor** folder to your project.
 
 ### via Download
 Alternatively you can just download the files directly from Github and add the files of the **Sources** folder to your project.

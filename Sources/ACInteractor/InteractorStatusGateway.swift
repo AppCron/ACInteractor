@@ -1,6 +1,6 @@
 import Foundation
 
-protocol InteractorStatusGateway {
+public protocol InteractorStatusGateway {
     func isRunning() -> Bool
     func setRunning(_ running: Bool)
 }
