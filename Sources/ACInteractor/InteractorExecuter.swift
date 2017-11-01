@@ -1,12 +1,12 @@
 import Foundation
 
-class InteractorExecuter {
+open class InteractorExecuter {
     
     private var interactors = Dictionary<String, AnyObject>()
     
     // MARK: Register
     
-    func registerInteractor<InteractorProtocol: Interactor, Response>
+    public func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
         let key = String(describing: request)
@@ -15,7 +15,7 @@ class InteractorExecuter {
     
     // MARK: Execute
     
-    func execute<Request: ErrorRequest>(_ request: Request) {
+    open func execute<Request: ErrorRequest>(_ request: Request) {
         let key = String(describing: request)
         let optionalValue = interactors[key]
         
