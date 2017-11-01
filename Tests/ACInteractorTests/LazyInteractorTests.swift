@@ -60,23 +60,6 @@ class LazyInteractorTests: XCTestCase {
         XCTAssert(interactor.executedRequest === request)
     }
     
-    // MARK: handleError()
-    
-    func testHandleError_callsHandleErrorOfInteractor() {
-        // Arrange
-        let request = TestInteractor.Request()
-        let error = InteractorError(message: "TestError")
-        
-        // Act
-        lazyInteractor.handleError(request, error: error)
-        
-        // Assert
-        let interactor = lazyInteractor.getInteractor()
-        XCTAssert(interactor.handledErrorRequest === request)
-        XCTAssert(interactor.handledError as AnyObject === error)
-    }
-    
-    
     // MARK: Test Interactor
     
     class TestInteractor: Interactor {
