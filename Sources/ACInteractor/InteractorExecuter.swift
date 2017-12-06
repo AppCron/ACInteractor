@@ -15,7 +15,7 @@ open class InteractorExecuter {
     
     // MARK: Execute
     
-    open func execute<Request: ErrorRequest>(_ request: Request) {
+    open func execute<Request: InteractorRequestProtocol>(_ request: Request) {
         let key = String(describing: request)
         let optionalValue = interactors[key]
         
@@ -34,17 +34,17 @@ open class InteractorExecuter {
     
     // MARK: Error Handling
     
-    private func fireErrorOnRequest(_ request: ErrorRequest, errorMessage: String) {
+    private func fireErrorOnRequest(_ request: ErrorRequestProtocol, errorMessage: String) {
         let error = InteractorError(message: errorMessage)
         request.onError?(error)
     }
     
-    private func fireInteractorNotRegisterdError(_ request: ErrorRequest) {
+    private func fireInteractorNotRegisterdError(_ request: ErrorRequestProtocol) {
         let message = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
         fireErrorOnRequest(request, errorMessage: message)
     }
     
-    private func fireInteractorMismatchError(_ request: ErrorRequest) {
+    private func fireInteractorMismatchError(_ request: ErrorRequestProtocol) {
         let message = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
         fireErrorOnRequest(request, errorMessage: message)
     }

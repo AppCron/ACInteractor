@@ -1,9 +1,16 @@
 import Foundation
 
-open class ErrorRequest {
-    var onError:((InteractorError) -> Void)?
+public protocol ErrorRequestProtocol {
+    var onError:((InteractorError) -> Void)? {get set}
 }
 
-open class InteractorRequest<Response>: ErrorRequest {
-    var onComplete:((Response) -> Void)?
+public protocol InteractorRequestProtocol: ErrorRequestProtocol {
+    associatedtype Response
+    var onComplete:((Response) -> Void)? {get set}
+}
+
+open class InteractorRequest<T>: InteractorRequestProtocol {
+    public typealias Response = T
+    public var onError:((InteractorError) -> Void)?
+    public var onComplete:((Response) -> Void)?
 }

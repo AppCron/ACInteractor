@@ -67,7 +67,7 @@ class LazyInteractorTests: XCTestCase {
         var numberOfExceuteCalls = 0
         var executedRequest: Request?
         
-        var handledErrorRequest: ErrorRequest?
+        var handledErrorRequest: ErrorRequestProtocol?
         var handledError: Error?
         
         init(dependency: String) {
@@ -82,7 +82,7 @@ class LazyInteractorTests: XCTestCase {
             executedRequest = request
         }
         
-        func handleError(_ request: ErrorRequest, error: Error) {
+        func handleError(_ request: ErrorRequestProtocol, error: Error) {
             handledErrorRequest = request
             handledError = error
         }
