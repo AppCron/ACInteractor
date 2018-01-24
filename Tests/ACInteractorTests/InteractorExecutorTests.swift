@@ -1,9 +1,9 @@
 import XCTest
 @testable import ACInteractor
 
-class InteractorTests: XCTestCase {
+class InteractorExecutorTests: XCTestCase {
     
-    let executer = InteractorExecuter()
+    let executor = InteractorExecutor()
     
     let firstInteractor = FirstInteractor()
     let secondInteractor = SecondInteractor()
@@ -25,17 +25,17 @@ class InteractorTests: XCTestCase {
     
     func testRegisterInteractor_succeeds(){
         // Act
-        executer.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(firstInteractor, request: firstRequest)
     }
     
     // MARK: execute
     
     func testExecute_withInteractorAndRequest_callsExecuteOnInteractor() {
         // Arrange
-        executer.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(firstInteractor, request: firstRequest)
         
         // Act
-        executer.execute(firstRequest)
+        executor.execute(firstRequest)
         
         // Assert
         XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
@@ -44,11 +44,11 @@ class InteractorTests: XCTestCase {
     
     func testExecute_withTwoInteractors_executeOnSecond_callsExecuteOnSecondInteractor() {
         // Arrange
-        executer.registerInteractor(firstInteractor, request: firstRequest)
-        executer.registerInteractor(secondInteractor, request: secondRequest)
+        executor.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: secondRequest)
         
         // Act
-        executer.execute(secondRequest)
+        executor.execute(secondRequest)
         
         // Assert
         XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
@@ -57,12 +57,12 @@ class InteractorTests: XCTestCase {
     
     func testExecute_withTwoInteractors_executeOnBoth_callsExecuteOnEachInteractor() {
         // Arrange
-        executer.registerInteractor(firstInteractor, request: firstRequest)
-        executer.registerInteractor(secondInteractor, request: secondRequest)
+        executor.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: secondRequest)
         
         // Act
-        executer.execute(firstRequest)
-        executer.execute(secondRequest)
+        executor.execute(firstRequest)
+        executor.execute(secondRequest)
         
         // Assert
         XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
@@ -74,22 +74,22 @@ class InteractorTests: XCTestCase {
     
     func testExecute_withUnknownRequest_callsErrorOnRequest() {
         // Act
-        executer.execute(firstRequest)
+        executor.execute(firstRequest)
         
         // Assert
-        let expected = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
+        let expected = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
     func testExecute_withMismatchRequest_callsErrorOnRequest() {
         // Arrange
-        executer.registerInteractor(secondInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: firstRequest)
         
         // Act
-        executer.execute(firstRequest)
+        executor.execute(firstRequest)
         
         // Assert
-        let expected = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
+        let expected = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     

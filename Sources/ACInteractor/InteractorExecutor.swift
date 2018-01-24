@@ -1,6 +1,9 @@
 import Foundation
 
-open class InteractorExecuter {
+@available(*, deprecated)
+typealias InteractorExecuter = InteractorExecutor
+
+open class InteractorExecutor {
     
     private var interactors = Dictionary<String, AnyObject>()
     
@@ -40,12 +43,12 @@ open class InteractorExecuter {
     }
     
     private func fireInteractorNotRegisterdError(_ request: ErrorRequestProtocol) {
-        let message = "ACInteractor.ACInteractorExcuter: No Interactor is registered for this request!"
+        let message = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
         fireErrorOnRequest(request, errorMessage: message)
     }
     
     private func fireInteractorMismatchError(_ request: ErrorRequestProtocol) {
-        let message = "ACInteractor.ACInteractorExcuter: Request does not match execute function of registered Interactor!"
+        let message = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
         fireErrorOnRequest(request, errorMessage: message)
     }
     

@@ -27,12 +27,12 @@ class LoginViewController: UIViewController {
             self.displayError(error.message)
         }
         
-        Logic.executer.execute(request)
+        Logic.executor.execute(request)
     }
 }
 ```
 
-Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecuter**. Therefore an initialized instance of each Interactor has to be registered on the **InteractorExecuter**. Interactors should be stateless, since all Requests of a given Interactor are handled by the same instance of that Interactor.
+Consumers, like ViewControllers, can easily execute **InteractorRequests** with the help of the **InteractorExecutor**. Therefore an initialized instance of each Interactor has to be registered on the **InteractorExecutor**. Interactors should be stateless, since all Requests of a given Interactor are handled by the same instance of that Interactor.
 
 ACInteractor adds no constraints to dependency management.  It's up to you how to initialize your Interactor instances. I'd recommend [Dependency Injection with a custom initializer](https://www.natashatherobot.com/swift-dependency-injection-with-a-custom-initializer/). More details can be found at the section "Dependency Injection".
 
@@ -159,22 +159,22 @@ The **onComplete** closure is already defined in the **InteractorRequest** and a
 ``` Swift
 class Logic {
     
-    static let executer = InteractorExecuter()
+    static let executor = InteractorExecutor()
     
     static func registerInteractors() {
         let loginInteractor = LoginUserInteractor()
         let loginRequest = LoginUserInteractor.Request()
         
-        executer.registerInteractor(loginInteractor, request: loginRequest)
+        executor.registerInteractor(loginInteractor, request: loginRequest)
     }
 
 }
 ```
 To enable consumers, like ViewControllers, to easily execute **InteractorRequests** it's necessary to register the corresponding Interactor first.
 
-In our case we use a helper class called **Logic**. It contains a static function **registerInteractors()** that creates a **LoginInteractor** instance and registers it with the corresponding **Request** at the **InteractorExecuter**.
+In our case we use a helper class called **Logic**. It contains a static function **registerInteractors()** that creates a **LoginInteractor** instance and registers it with the corresponding **Request** at the **InteractorExecutor**.
 
-Besides that, the **Logic** contains a static property with a global **Executer** instance. This makes it easier for the consumer to access the given instance.
+Besides that, the **Logic** contains a static property with a global **Executor** instance. This makes it easier for the consumer to access the given instance.
 
 ## Executing Requests
 ``` Swift
@@ -190,13 +190,13 @@ class LoginViewController: UIViewController {
             self.userLabel.text = response.username
         }
         
-        Logic.executer.execute(request)
+        Logic.executor.execute(request)
     }
 }
 ```
-To execute a **Request** you can simply call the **executeMethod()** on the **InteractorExecuter**. Just make sure you have registered the that Interactor class with its Request on the same **InteractorExecuter** instance.
+To execute a **Request** you can simply call the **executeMethod()** on the **InteractorExecutor**. Just make sure you have registered the that Interactor class with its Request on the same **InteractorExecutor** instance.
 
-In our example this instance is stored in the static **executer** property on the Logic class, as shown above.
+In our example this instance is stored in the static **executor** property on the Logic class, as shown above.
 
 ## Error Handling
 Basic error handling is already part of ACInteractor. Each **InteractorRequest** has an **onError** property that stores a closure for the error handling. 
@@ -230,7 +230,7 @@ class LoginViewController: UIViewController {
             self.displayError(error.message)
         }
         
-        Logic.executer.execute(request)
+        Logic.executor.execute(request)
     }
 }
 ```
@@ -286,7 +286,7 @@ On the Interactor we need a custom **init** function that takes the dependencies
 ``` Swift
 class Logic {
     
-    static let executer = InteractorExecuter()
+    static let executor = InteractorExecutor()
     
     static func registerInteractors() {
     	let webservicePlugin = HttpWebservicePlugin()
@@ -295,7 +295,7 @@ class Logic {
         let loginInteractor = LoginUserInteractor(webservicePlugin: webservicePlugin, userGateway: userGateway)
         let loginRequest = LoginUserInteractor.Request()
         
-        executer.registerInteractor(loginInteractor, request: loginRequest)
+        executor.registerInteractor(loginInteractor, request: loginRequest)
     }
 }
 ```
@@ -308,11 +308,11 @@ class LoginViewController: UIViewController {
     func login() {
         let request = LoginUserInteractor.Request()
        	...
-        Logic.executer.execute(request)
+        Logic.executor.execute(request)
     }
 }
 ```
-Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecuter**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGateways and Plugins without breaking the API that is used by the caller.
+Nothing changes :) The Interactor is still executed with the same Request on the **InteractorExecutor**. This means you can easily refactor Interactors behind the scenes and extract technical details in EntityGateways and Plugins without breaking the API that is used by the caller.
 
 ## Unit Testing
 ACInteractor was build with TDD in mind. Each Interactor has a single execution function, a defined request and response, a stateless implementation and injected dependencies. This helps writing isolated Unit Tests for each Interactor. 
@@ -321,14 +321,14 @@ If you use the Dependency Injection approach described above you can easily mock
 simulate, like a long taking webservice request or a full database.
 
 ## Troubleshooting
-1. I can not register my Interactor at the InteractorExecuter. I get a Compiler Error.
+1. I can not register my Interactor at the InteractorExecutor. I get a Compiler Error.
    * Make sure the `interactor` implements the `Interactor` protocol
    * Make sure the `request` is a subclass of `InteractorRequest<Response>` and is correctly typed.
    * Make sure the `request` is an initialized object instance.
 
-1. Calling execute on the InteractorExecuter does not call the execute method of my Interactor.
-   * Make sure you have registered the Interactor with the corresponding InteractoRequest by calling the `registerInteractor()` function on the `InteractorExecuter`.
-   * Make sure you have called the `registerInteractor()` and the `execute()` function on the **same** instance of `InteractorExecuter`.
+1. Calling execute on the InteractorExecutor does not call the execute method of my Interactor.
+   * Make sure you have registered the Interactor with the corresponding InteractoRequest by calling the `registerInteractor()` function on the `InteractorExecutor`.
+   * Make sure you have called the `registerInteractor()` and the `execute()` function on the **same** instance of `InteractorExecutor`.
    * Make sure you have set an `onError` closure on the `request`. It might provide additional details in the error message about what went wrong.
 
 ## Credits
