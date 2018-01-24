@@ -21,67 +21,14 @@ class InteractorExecutorTests: XCTestCase {
         }
     }
     
-    // MARK: registerInteractor
+    // MARK: - registerInteractor
     
     func testRegisterInteractor_succeeds(){
         // Act
         executor.registerInteractor(firstInteractor, request: firstRequest)
     }
     
-    // MARK: execute
-    
-    func testExecute_withInteractorAndRequest_callsExecuteOnInteractor() {
-        // Arrange
-        executor.registerInteractor(firstInteractor, request: firstRequest)
-        
-        // Act
-        executor.execute(firstRequest)
-        
-        // Assert
-        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
-        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
-    }
-    
-    func testExecute_withTwoInteractors_executeOnSecond_callsExecuteOnSecondInteractor() {
-        // Arrange
-        executor.registerInteractor(firstInteractor, request: firstRequest)
-        executor.registerInteractor(secondInteractor, request: secondRequest)
-        
-        // Act
-        executor.execute(secondRequest)
-        
-        // Assert
-        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
-        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
-    }
-    
-    func testExecute_withTwoInteractors_executeOnBoth_callsExecuteOnEachInteractor() {
-        // Arrange
-        executor.registerInteractor(firstInteractor, request: firstRequest)
-        executor.registerInteractor(secondInteractor, request: secondRequest)
-        
-        // Act
-        executor.execute(firstRequest)
-        executor.execute(secondRequest)
-        
-        // Assert
-        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
-        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
-        
-        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
-        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
-    }
-    
-    func testExecute_withUnknownRequest_callsErrorOnRequest() {
-        // Act
-        executor.execute(firstRequest)
-        
-        // Assert
-        let expected = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
-        XCTAssertEqual(errorMessageFromFirstRequest, expected)
-    }
-    
-    func testExecute_withMismatchRequest_callsErrorOnRequest() {
+    func testRegisterInteractor_callsErrorOnRequest_whenInteractorDoesNotMatchRequest() {
         // Arrange
         executor.registerInteractor(secondInteractor, request: firstRequest)
         
@@ -93,6 +40,35 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
+    // MARK: - execute
+    
+    func testExecute_callsExecuteOnInteractor_thatIsRegisteredForRequest() {
+        // Arrange
+        executor.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        executor.execute(firstRequest)
+        executor.execute(secondRequest)
+        
+        // Assert
+        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
+        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
+        
+        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
+        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
+    }
+    
+    func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequest() {
+        // Arrange
+        executor.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        executor.execute(firstRequest)
+        
+        // Assert
+        let expected = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
+    }
+    
 }
-
-
