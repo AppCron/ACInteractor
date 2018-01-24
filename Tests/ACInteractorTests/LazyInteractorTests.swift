@@ -56,36 +56,8 @@ class LazyInteractorTests: XCTestCase {
         
         // Assert
         let interactor = lazyInteractor.getInteractor()
-        XCTAssertEqual(interactor.numberOfExceuteCalls, 1)
-        XCTAssert(interactor.executedRequest === request)
+        XCTAssertEqual(interactor.executedRequests.count, 1)
+        XCTAssert(interactor.executedRequests.first === request)
     }
     
-    // MARK: Test Interactor
-    
-    class TestInteractor: Interactor {
-        let dependency: String
-        var numberOfExceuteCalls = 0
-        var executedRequest: Request?
-        
-        var handledErrorRequest: ErrorRequestProtocol?
-        var handledError: Error?
-        
-        init(dependency: String) {
-            self.dependency = dependency
-        }
-    
-        class Request: InteractorRequest<NSString> {
-        }
-    
-        func execute(_ request: Request) {
-            numberOfExceuteCalls += 1
-            executedRequest = request
-        }
-        
-        func handleError(_ request: ErrorRequestProtocol, error: Error) {
-            handledErrorRequest = request
-            handledError = error
-        }
-    }
-
 }
