@@ -1,6 +1,6 @@
 import Foundation
 
-open class InteractorExecuter {
+open class InteractorExecutor {
     
     private var interactors = Dictionary<String, AnyObject>()
     

@@ -1,9 +1,9 @@
 import XCTest
 @testable import ACInteractor
 
-class InteractorTests: XCTestCase {
+class InteractorExecutorTests: XCTestCase {
     
-    let executer = InteractorExecuter()
+    let executer = InteractorExecutor()
     
     let firstInteractor = FirstInteractor()
     let secondInteractor = SecondInteractor()
