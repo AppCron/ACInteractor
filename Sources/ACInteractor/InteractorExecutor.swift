@@ -1,5 +1,8 @@
 import Foundation
 
+@available(*, deprecated)
+typealias InteractorExecuter = InteractorExecutor
+
 open class InteractorExecutor {
     
     private var interactors = Dictionary<String, AnyObject>()
