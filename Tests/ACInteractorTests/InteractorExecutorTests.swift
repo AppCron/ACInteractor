@@ -14,7 +14,6 @@ class InteractorExecutorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         
         firstRequest.onError = { [unowned self] (error: InteractorError) -> Void in
             self.errorMessageFromFirstRequest = error.message
@@ -28,7 +27,7 @@ class InteractorExecutorTests: XCTestCase {
         executor.registerInteractor(firstInteractor, request: firstRequest)
     }
     
-    func testRegisterInteractor_callsErrorOnRequest_whenInteractorDoesNotMatchRequest() {
+    func testRegisterInteractor_callsErrorClosureOnRequest_whenInteractorDoesNotMatchRequest() {
         // Arrange
         executor.registerInteractor(secondInteractor, request: firstRequest)
         
