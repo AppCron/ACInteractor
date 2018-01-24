@@ -70,4 +70,28 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
+    // MARK: - getInteractor
+    
+    func testGetInteractor_returnsInteractor_registeredForRequest() {
+        // Arrange
+        executor.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        let firstResult = executor.getInteractor(request: firstRequest)
+        let secondResult = executor.getInteractor(request: secondRequest)
+        
+        // Assert
+        XCTAssert(firstResult === firstInteractor)
+        XCTAssert(secondResult === secondInteractor)
+    }
+    
+    func testGetInteractor_returnsNil_whenNoInteractorIsRegisteredForRequest() {
+        // Act
+        let result = executor.getInteractor(request: firstRequest)
+        
+        // Assert
+        XCTAssertNil(result)
+    }
+    
 }
