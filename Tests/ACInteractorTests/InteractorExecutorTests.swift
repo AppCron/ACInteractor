@@ -38,8 +38,8 @@ class InteractorExecutorTests: XCTestCase {
         executor.execute(firstRequest)
         
         // Assert
-        XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
-        XCTAssert(firstInteractor.executedRequest === firstRequest)
+        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
+        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
     }
     
     func testExecute_withTwoInteractors_executeOnSecond_callsExecuteOnSecondInteractor() {
@@ -51,8 +51,8 @@ class InteractorExecutorTests: XCTestCase {
         executor.execute(secondRequest)
         
         // Assert
-        XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
-        XCTAssert(secondInteractor.executedRequest === secondRequest)
+        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
+        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
     }
     
     func testExecute_withTwoInteractors_executeOnBoth_callsExecuteOnEachInteractor() {
@@ -65,11 +65,11 @@ class InteractorExecutorTests: XCTestCase {
         executor.execute(secondRequest)
         
         // Assert
-        XCTAssertEqual(firstInteractor.numberOfExceuteCalls, 1)
-        XCTAssert(firstInteractor.executedRequest === firstRequest)
+        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
+        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
         
-        XCTAssertEqual(secondInteractor.numberOfExceuteCalls, 1)
-        XCTAssert(secondInteractor.executedRequest === secondRequest)
+        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
+        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
     }
     
     func testExecute_withUnknownRequest_callsErrorOnRequest() {
@@ -91,35 +91,6 @@ class InteractorExecutorTests: XCTestCase {
         // Assert
         let expected = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
-    }
-    
-    
-    // MARK: Test Interactors
-    
-   class FirstInteractor: Interactor {
-        var numberOfExceuteCalls = 0
-        var executedRequest: Request?
-        
-        class Request: InteractorRequest<NSString> {
-        }
-        
-    func execute(_ request: Request) {
-        numberOfExceuteCalls += 1
-        executedRequest = request
-        }
-    }
-    
-    class SecondInteractor: Interactor {
-        var numberOfExceuteCalls = 0
-        var executedRequest: Request?
-        
-        class Request: InteractorRequest<NSString> {
-        }
-        
-        func execute(_ request: Request) {
-            numberOfExceuteCalls += 1
-            executedRequest = request
-        }
     }
     
 }

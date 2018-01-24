@@ -18,3 +18,31 @@ class TestInteractor: Interactor {
     }
     
 }
+
+
+class FirstInteractor: Interactor {
+    
+    var executedRequests = [Request]()
+    
+    class Request: InteractorRequest<NSString> {
+    }
+    
+    func execute(_ request: Request) {
+        executedRequests.append(request)
+    }
+    
+}
+
+
+class SecondInteractor: Interactor {
+    
+    var executedRequests = [Request]()
+    
+    class Request: InteractorRequest<NSString> {
+    }
+    
+    func execute(_ request: Request) {
+        executedRequests.append(request)
+    }
+    
+}
