@@ -1,6 +1,7 @@
 import XCTest
 @testable import ACInteractor
 
+@available(*, deprecated, message: "InteractorStatusInMemoryGateway will be removed in upcoming releases.")
 class InteractorStatusInMemoryGatewayTests: XCTestCase {
     
     let gateway = InteractorStatusInMemoryGateway()

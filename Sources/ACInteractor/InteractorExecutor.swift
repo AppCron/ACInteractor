@@ -1,6 +1,6 @@
 import Foundation
 
-@available(*, deprecated)
+@available(*, deprecated, renamed: "InteractorExecutor")
 typealias InteractorExecuter = InteractorExecutor
 
 open class InteractorExecutor {
