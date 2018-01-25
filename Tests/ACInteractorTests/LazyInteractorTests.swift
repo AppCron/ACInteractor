@@ -12,7 +12,7 @@ class LazyInteractorTests: XCTestCase {
         lazyInteractor = LazyInteractor(factory: testFactory)
     }
     
-    // MARK: init()
+    // MARK: - Init
     
     func testInit_doesNotInitializeLazyInstance()
     {
@@ -20,7 +20,7 @@ class LazyInteractorTests: XCTestCase {
         XCTAssertNil(lazyInteractor.lazyInstance)
     }
     
-    // MARK: getInteractor()
+    // MARK: - getInteractor
     
     func testGetInteractor_returnsInstanceBuiltWithFactory()
     {
@@ -32,7 +32,7 @@ class LazyInteractorTests: XCTestCase {
     }
     
     
-    func testGetInteractor_calledTwice_doesNotCreateNewInstance()
+    func testGetInteractor_alwaysReturnsSameInstance()
     {
         // Act
         let firstInteractor = lazyInteractor.getInteractor()
@@ -42,7 +42,7 @@ class LazyInteractorTests: XCTestCase {
         XCTAssert(firstInteractor === secondInteractor)
     }
     
-    // MARK: execute()
+    // MARK: - execute
     
     func testExceute_callsExecuteOfInteractor()
     {
@@ -53,9 +53,25 @@ class LazyInteractorTests: XCTestCase {
         lazyInteractor.execute(request)
         
         // Assert
-        let interactor = lazyInteractor.getInteractor()
-        XCTAssertEqual(interactor.executedRequests.count, 1)
-        XCTAssert(interactor.executedRequests.first === request)
+        let interactor = lazyInteractor.lazyInstance
+        XCTAssertEqual(interactor?.executedRequests.count, 1)
+        XCTAssert(interactor?.executedRequests.first === request)
+    }
+    
+    func testExecute_alwaysUsesSameInteractorInstance() {
+        // Arrange
+        let firstRequest = TestInteractor.Request()
+        let secondRequest = TestInteractor.Request()
+        
+        // Act
+        lazyInteractor.execute(firstRequest)
+        lazyInteractor.execute(secondRequest)
+        
+        // Assert
+        let interactor = lazyInteractor.lazyInstance
+        XCTAssertEqual(interactor?.executedRequests.count, 2)
+        XCTAssert(interactor?.executedRequests.first === firstRequest)
+        XCTAssert(interactor?.executedRequests.last === secondRequest)
     }
     
 }

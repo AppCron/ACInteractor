@@ -17,7 +17,7 @@ class InteractorErrorTests: XCTestCase {
     
     // MARK: - Init
     
-    func testInit_withMessage_setsMessageAsLocalizedDescription() {
+    func testInit_setsMessageAsLocalizedDescription() {
         // Act
         let error = InteractorError(message: "testMessage")
         
@@ -26,7 +26,7 @@ class InteractorErrorTests: XCTestCase {
         XCTAssertEqual(error.userInfo[NSLocalizedDescriptionKey] as? String, "testMessage")
     }
     
-    func testInit_withCode_setsCode() {
+    func testInit_setsCode() {
         // Act
         let error = InteractorError(message: "", code: 42)
         
@@ -34,7 +34,7 @@ class InteractorErrorTests: XCTestCase {
         XCTAssertEqual(error.code, 42)
     }
     
-    func testInit_withDict_setsDict() {
+    func testInit_setsDict() {
         // Act
         let error = InteractorError(message: "", code: 0, dict: testErrorDict)
         
