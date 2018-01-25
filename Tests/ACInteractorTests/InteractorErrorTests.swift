@@ -8,7 +8,6 @@ class InteractorErrorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         
         testError = NSError(domain: "com.appcron", code: 42, userInfo: [NSLocalizedDescriptionKey: "testMessage"])
         

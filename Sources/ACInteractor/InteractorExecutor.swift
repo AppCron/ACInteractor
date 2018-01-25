@@ -7,7 +7,7 @@ open class InteractorExecutor {
     
     private var interactors = Dictionary<String, AnyObject>()
     
-    // MARK: Register
+    // MARK: - Register
     
     public func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
@@ -16,7 +16,7 @@ open class InteractorExecutor {
         interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
-    // MARK: Execute
+    // MARK: - Execute
     
     open func execute<Request: InteractorRequestProtocol>(_ request: Request) {
         let key = String(describing: request)
@@ -35,7 +35,20 @@ open class InteractorExecutor {
         wrapper.execute(request)
     }
     
-    // MARK: Error Handling
+    // MARK: - GetInteractor
+    
+    open func getInteractor<Request: InteractorRequestProtocol>(request: Request) -> AnyObject? {
+        let key = String(describing: request)
+        let optional = interactors[key]
+        
+        guard let wrapper = optional as? InteractorWrapper<Request> else {
+            return nil
+        }
+        
+        return wrapper.wrappedInteractor
+    }
+    
+    // MARK: - Error Handling
     
     private func fireErrorOnRequest(_ request: ErrorRequestProtocol, errorMessage: String) {
         let error = InteractorError(message: errorMessage)
