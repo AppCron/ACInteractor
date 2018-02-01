@@ -10,7 +10,7 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
     private(set) var executedRequests = [Request]()
     
     func execute(_ request: Request) {
-        
+        executedRequests.append(request)
     }
     
 }
