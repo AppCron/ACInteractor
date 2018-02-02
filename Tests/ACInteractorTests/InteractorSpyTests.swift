@@ -16,6 +16,8 @@ class InteractorSpyTests: XCTestCase {
     var firstRequestError: InteractorError?
     var secondRequestError: InteractorError?
     
+    let testError = InteractorError(message: "test error")
+    
     override func setUp() {
         super.setUp()
         
@@ -84,6 +86,27 @@ class InteractorSpyTests: XCTestCase {
         // Assert
         XCTAssert(firstRequestError === firstError)
         XCTAssert(secondRequestError === secondError)
+    }
+    
+    // MARK: - Mixed Responses and Errors
+    
+    func testExecute_callsOnComplete_afterAllErrorsHaveBeenReturned() {
+        // Arrange
+        let firstResponse = SampleResponse()
+        let secondResponse = SampleResponse()
+        spy.returnsResponses = [firstResponse, secondResponse]
+        spy.returnsErrors = [testError]
+        
+        // Act
+        spy.execute(firstRequest)
+        spy.execute(secondRequest)
+        
+        // Assert
+        XCTAssert(firstRequestResponse == nil)
+        XCTAssert(firstRequestError === testError)
+        
+        XCTAssert(secondRequestResponse === firstResponse)
+        XCTAssert(secondRequestError == nil)
     }
     
 }
