@@ -43,4 +43,30 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         }
     }
     
+    // MARK: - Response Helper
+    
+    var returnsResponse: Request.Response? {
+        get {
+            return returnsResponses.first
+        }
+        set {
+            returnsResponses.removeAll()
+            if let response = newValue {
+                returnsResponses.append(response)
+            }
+        }
+    }
+    
+    var returnsError: InteractorError? {
+        get {
+            return returnsErrors.first
+        }
+        set {
+            returnsErrors.removeAll()
+            if let error = newValue {
+                returnsErrors.append(error)
+            }
+        }
+    }
+    
 }

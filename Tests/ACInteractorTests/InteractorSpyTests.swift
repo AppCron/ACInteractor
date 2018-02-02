@@ -168,4 +168,59 @@ class InteractorSpyTests: XCTestCase {
             XCTAssertEqual(isCalledOnce, test.result)
         }
     }
+    
+    // MARK: - Response Helper
+    
+    func testReturnsResponse_returnsFirstStoredResponse() {
+        // Arrange
+        let firstResponse = SampleResponse()
+        let secondResponse = SampleResponse()
+        spy.returnsResponses = [firstResponse, secondResponse]
+        
+        // Act
+        let response = spy.returnsResponse
+        
+        // Assert
+        XCTAssert(response === firstResponse)
+    }
+    
+    func testSetReturnsResponse_storesResponse_overridesExistingOnes() {
+        // Arange
+        spy.returnsResponses = [SampleResponse(), SampleResponse()]
+        let newResponse = SampleResponse()
+        
+        // Act
+        spy.returnsResponse = newResponse
+        
+        // Assert
+        XCTAssert(spy.returnsResponses.first === newResponse)
+        XCTAssertEqual(spy.returnsResponses.count, 1)
+    }
+    
+    func testReturnsError_returnsFirstStoredError() {
+        // Arange
+        let firstError = InteractorError()
+        let secondError = InteractorError()
+        spy.returnsErrors = [firstError, secondError]
+        
+        // Act
+        let error = spy.returnsError
+        
+        // Assert
+        XCTAssert(error === firstError)
+    }
+    
+    func testSetReturnsError_storesError_overridesExistingOnes() {
+        // Arange
+        spy.returnsErrors = [InteractorError(), InteractorError()]
+        let newError = InteractorError()
+        
+        // Act
+        spy.returnsError = newError
+        
+        // Assert
+        XCTAssert(spy.returnsErrors.first === newError)
+        XCTAssertEqual(spy.returnsErrors.count, 1)
+    }
+    
 }
