@@ -54,6 +54,18 @@ class InteractorSpyTests: XCTestCase {
         XCTAssert(executedRequests.last === secondRequest)
     }
     
+    func testLastRequest_returnsLastExecutedRequest() {
+        // Arrange
+        spy.execute(firstRequest)
+        spy.execute(secondRequest)
+        
+        // Act
+        let lastRequest = spy.lastRequest
+        
+        // Assert
+        XCTAssert(lastRequest === secondRequest)
+    }
+    
     // MARK: - Response
     
     func testExecute_callsOnComplete_withStoredResponses() {
