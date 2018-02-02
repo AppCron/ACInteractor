@@ -109,4 +109,23 @@ class InteractorSpyTests: XCTestCase {
         XCTAssert(secondRequestError == nil)
     }
     
+    func testExecute_callsOnComplete_whenNoErrorConstantIsUsed() {
+        // Arrange
+        let firstResponse = SampleResponse()
+        let secondResponse = SampleResponse()
+        spy.returnsResponses = [firstResponse, secondResponse]
+        spy.returnsErrors = [spy.noError, testError]
+        
+        // Act
+        spy.execute(firstRequest)
+        spy.execute(secondRequest)
+        
+        // Assert
+        XCTAssert(firstRequestResponse === firstResponse)
+        XCTAssert(firstRequestError == nil)
+        
+        XCTAssert(secondRequestResponse == nil)
+        XCTAssert(secondRequestError === testError)
+    }
+    
 }

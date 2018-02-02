@@ -14,12 +14,16 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         
         if let error = returnsErrors.first {
             returnsErrors.remove(at: 0)
-            request.onError?(error)
-            return
+            
+            if error != noError {
+                request.onError?(error)
+                return
+            }
         }
         
         if let response = returnsResponses.first {
             returnsResponses.remove(at: 0)
+            
             request.onComplete?(response)
             return
         }
