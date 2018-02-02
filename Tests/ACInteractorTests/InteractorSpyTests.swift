@@ -128,4 +128,44 @@ class InteractorSpyTests: XCTestCase {
         XCTAssert(secondRequestError === testError)
     }
     
+    // MARK: - Request Count
+    
+    func testIsCalledOnce_returnsTrue_whenCalledOnce() {
+        var testData = [(executionCalls: Int, result: Bool)]()
+        testData.append((executionCalls: 0, result: false))
+        testData.append((executionCalls: 1, result: true))
+        testData.append((executionCalls: 2, result: false))
+        
+        for test in testData {
+            // Arrange
+            for _ in 0..<test.executionCalls {
+                spy.execute(firstRequest)
+            }
+            
+            // Act
+            let isCalledOnce = spy.isCalledOnce
+            
+            // Assert
+            XCTAssertEqual(isCalledOnce, test.result)
+        }
+    }
+    
+    func testIsNeverCalled_returnsTrue_whenNeverCalled() {
+        var testData = [(executionCalls: Int, result: Bool)]()
+        testData.append((executionCalls: 0, result: true))
+        testData.append((executionCalls: 1, result: false))
+        
+        for test in testData {
+            // Arrange
+            for _ in 0..<test.executionCalls {
+                spy.execute(firstRequest)
+            }
+            
+            // Act
+            let isCalledOnce = spy.isNeverCalled
+            
+            // Assert
+            XCTAssertEqual(isCalledOnce, test.result)
+        }
+    }
 }

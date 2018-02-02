@@ -29,4 +29,18 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         }
     }
     
+    // MARK: - Request Count
+    
+    var isCalledOnce: Bool {
+        get {
+            return executedRequests.count == 1
+        }
+    }
+    
+    var isNeverCalled: Bool {
+        get {
+            return executedRequests.count == 0
+        }
+    }
+    
 }
