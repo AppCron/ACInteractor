@@ -10,11 +10,30 @@ class InteractorSpyTests: XCTestCase {
     
     let firstRequest = SampleRequest()
     let secondRequest = SampleRequest()
-    let firstResponse = SampleResponse()
-    let secondResponse = SampleResponse()
+    
+    var firstRequestResponse: SampleResponse?
+    var secondRequestResponse: SampleResponse?
+    var firstRequestError: InteractorError?
+    var secondRequestError: InteractorError?
     
     override func setUp() {
         super.setUp()
+        
+        firstRequest.onComplete = { response in
+            self.firstRequestResponse = response
+        }
+        
+        firstRequest.onError = { error in
+            self.firstRequestError = error
+        }
+        
+        secondRequest.onComplete = { response in
+            self.secondRequestResponse = response
+        }
+        
+        secondRequest.onError = { error in
+            self.secondRequestError = error
+        }
     }
     
     // MARK: - Requests
@@ -35,6 +54,36 @@ class InteractorSpyTests: XCTestCase {
     
     // MARK: - Response
     
+    func testExecute_callsOnComplete_withStoredResponses() {
+        // Arrange
+        let firstResponse = SampleResponse()
+        let secondResponse = SampleResponse()
+        spy.returnsResponses = [firstResponse, secondResponse]
+        
+        // Act
+        spy.execute(firstRequest)
+        spy.execute(secondRequest)
+        
+        // Assert
+        XCTAssert(firstRequestResponse === firstResponse)
+        XCTAssert(secondRequestResponse === secondResponse)
+    }
+    
     // MARK: - Error Handling
+    
+    func testExecute_callsOnError_withStoredErrors() {
+        // Arrange
+        let firstError = InteractorError()
+        let secondError = InteractorError()
+        spy.returnsErrors = [firstError, secondError]
+        
+        // Act
+        spy.execute(firstRequest)
+        spy.execute(secondRequest)
+        
+        // Assert
+        XCTAssert(firstRequestError === firstError)
+        XCTAssert(secondRequestError === secondError)
+    }
     
 }
