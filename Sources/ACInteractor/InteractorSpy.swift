@@ -22,7 +22,9 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         }
         
         if let response = returnsResponses.first {
-            returnsResponses.remove(at: 0)
+            if returnsResponses.count > 1 {
+                returnsResponses.remove(at: 0)
+            }
             
             request.onComplete?(response)
             return
