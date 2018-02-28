@@ -1,15 +1,15 @@
 import Foundation
 
-class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
+public class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
     
-    var returnsResponses = [Request.Response]()
-    var returnsErrors = [InteractorError]()
+    public var returnsResponses = [Request.Response]()
+    public var returnsErrors = [InteractorError]()
     
-    let noError = InteractorError(message: "no error")
+    public let noError = InteractorError(message: "no error")
     
-    private(set) var executedRequests = [Request]()
+    public private(set) var executedRequests = [Request]()
     
-    func execute(_ request: Request) {
+    public func execute(_ request: Request) {
         executedRequests.append(request)
         
         if let error = returnsErrors.first {
@@ -33,19 +33,19 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
     
     // MARK: - Request Count
     
-    var lastRequest: Request? {
+    public var lastRequest: Request? {
         get {
             return executedRequests.last
         }
     }
     
-    var isCalledOnce: Bool {
+    public var isCalledOnce: Bool {
         get {
             return executedRequests.count == 1
         }
     }
     
-    var isNeverCalled: Bool {
+    public var isNeverCalled: Bool {
         get {
             return executedRequests.count == 0
         }
@@ -53,7 +53,7 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
     
     // MARK: - Response Helper
     
-    var returnsResponse: Request.Response? {
+    public var returnsResponse: Request.Response? {
         get {
             return returnsResponses.first
         }
@@ -65,7 +65,7 @@ class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         }
     }
     
-    var returnsError: InteractorError? {
+    public var returnsError: InteractorError? {
         get {
             return returnsErrors.first
         }
