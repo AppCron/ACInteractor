@@ -31,6 +31,12 @@ public class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
         }
     }
     
+    public func reset() {
+        executedRequests.removeAll()
+        returnsResponses.removeAll()
+        returnsErrors.removeAll()
+    }
+
     // MARK: - Request Count
     
     public var lastRequest: Request? {
