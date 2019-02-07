@@ -1,5 +1,5 @@
 # ACInteractor
-[![License](https://img.shields.io/badge/swift-4.0-orange.svg)](https://swift.org)
+[![License](https://img.shields.io/badge/swift-4.2-orange.svg)](https://swift.org)
 [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/appcron/acinteractor/master/LICENSE)
 
 Swift Package for a Use Case centric architecture as proposed by Robert C. Martin and others.
