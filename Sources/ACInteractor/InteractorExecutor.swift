@@ -19,8 +19,7 @@ open class InteractorExecutor {
     open func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
-        let key = String(describing: request)
-        interactors[key] = InteractorWrapper(interactor: interactor)
+        registerInteractor(interactor, request: type(of: request))
     }
     
     // MARK: - Execute
