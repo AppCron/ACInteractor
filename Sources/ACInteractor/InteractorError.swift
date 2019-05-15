@@ -8,24 +8,24 @@ public extension InteractorError {
     
     // MARK: - Init
     
-    public convenience init(message: String, code: Int, dict: [String: Any]) {
+    convenience init(message: String, code: Int, dict: [String: Any]) {
         var infoDict = [String : Any]()
         infoDict[NSLocalizedDescriptionKey] = message
         infoDict[InteractorError.dictKey] = dict
         self.init(domain: "com.appcron.acinteractor", code: code, userInfo: infoDict)
     }
     
-    public convenience init(message: String, code: Int) {
+    convenience init(message: String, code: Int) {
         self.init(message: message, code: code, dict: [String: Any]())
     }
     
-    public convenience init(message: String) {
+    convenience init(message: String) {
         self.init(message: message, code: 0)
     }
     
     // MARK: - Message
     
-    public var message: String {
+    var message: String {
         get {
             // Use localizedDescription instead in infoDict,
             // since some CoreData error have a localizedDescription but no entry in the dictionary.
@@ -35,7 +35,7 @@ public extension InteractorError {
     
     // MARK: - Error Dict
     
-    public var dict: [String: Any] {
+    var dict: [String: Any] {
         get {
             guard let dict = userInfo[InteractorError.dictKey] as? [String: Any] else {
                 return [String: Any]()

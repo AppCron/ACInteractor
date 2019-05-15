@@ -1,5 +1,5 @@
 # ACInteractor
-[![License](https://img.shields.io/badge/swift-4.2-orange.svg)](https://swift.org)
+[![License](https://img.shields.io/badge/swift-5.0-orange.svg)](https://swift.org)
 [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/appcron/acinteractor/master/LICENSE)
 
 Swift Package for a Use Case centric architecture as proposed by Robert C. Martin and others.
@@ -75,7 +75,7 @@ Alternatively you can just download the files directly from Github and add the f
 You can also add it as [Swift Package](https://swift.org/package-manager/) Dependency to another Swift Package.
 ``` Swift
 dependencies: [
-    .Package(url: "https://github.com/AppCron/ACInteractor.git", majorVersion: 0)
+    .package(url: "https://github.com/AppCron/ACInteractor.git", from: "1.0.0")
 ]
 ```
 

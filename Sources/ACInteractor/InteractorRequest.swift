@@ -16,7 +16,7 @@ open class InteractorRequest<T>: InteractorRequestProtocol {
 }
 
 public extension InteractorRequest where Response == Void  {
-    public func onCompleteVoid() {
+    func onCompleteVoid() {
         onComplete?(())
     }
 }
