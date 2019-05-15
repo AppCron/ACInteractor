@@ -60,7 +60,7 @@ class InteractorExecutorTests: XCTestCase {
     
     func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequestType() {
         // Arrange
-        executor.registerInteractor(secondInteractor, request: secondRequest)
+        executor.registerInteractor(secondInteractor, request: SecondInteractor.Request.self)
 
         // Act
         executor.execute(firstRequest)
@@ -70,6 +70,9 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
+    // MARK: - execute (deprecated)
+    
+    @available(*, deprecated)
     func testExecute_callsExecuteOnInteractor_thatIsRegisteredForRequestInstance() {
         // Arrange
         executor.registerInteractor(firstInteractor, request: firstRequest)
@@ -87,6 +90,7 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssert(secondInteractor.executedRequests.first === secondRequest)
     }
     
+    @available(*, deprecated)
     func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequestInstance() {
         // Arrange
         executor.registerInteractor(secondInteractor, request: secondRequest)

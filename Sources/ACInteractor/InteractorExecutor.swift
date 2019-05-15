@@ -16,6 +16,7 @@ open class InteractorExecutor {
         interactors[key] = InteractorWrapper(interactor: interactor)
     }
     
+    @available(*, deprecated, message: "Use MyInteractor.Request.self as request parameter.")
     open func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
