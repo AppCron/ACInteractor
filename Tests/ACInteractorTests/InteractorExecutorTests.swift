@@ -20,25 +20,6 @@ class InteractorExecutorTests: XCTestCase {
         }
     }
     
-    // MARK: - registerInteractor
-    
-    func testRegisterInteractor_succeeds(){
-        // Act
-        executor.registerInteractor(firstInteractor, request: firstRequest)
-    }
-    
-    func testRegisterInteractor_callsErrorClosureOnRequest_whenInteractorDoesNotMatchRequest() {
-        // Arrange
-        executor.registerInteractor(secondInteractor, request: firstRequest)
-        
-        // Act
-        executor.execute(firstRequest)
-        
-        // Assert
-        let expected = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
-        XCTAssertEqual(errorMessageFromFirstRequest, expected)
-    }
-    
     // MARK: - execute
     
     func testExecute_callsExecuteOnInteractor_thatIsRegisteredForRequest() {
@@ -67,6 +48,18 @@ class InteractorExecutorTests: XCTestCase {
 
         // Assert
         let expected = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
+    }
+    
+    func testExecute_callsErrorOnRequest_whenRegisteredInteractorDoesNotMatchRequest() {
+        // Arrange
+        executor.registerInteractor(secondInteractor, request: FirstInteractor.Request.self)
+        
+        // Act
+        executor.execute(firstRequest)
+        
+        // Assert
+        let expected = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
@@ -103,12 +96,25 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssertEqual(errorMessageFromFirstRequest, expected)
     }
     
+    @available(*, deprecated)
+    func testExecute_callsErrorOnRequest_whenRegisteredInteractorDoesNotMatchRequestInstance() {
+        // Arrange
+        executor.registerInteractor(secondInteractor, request: firstRequest)
+        
+        // Act
+        executor.execute(firstRequest)
+        
+        // Assert
+        let expected = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
+    }
+    
     // MARK: - getInteractor
     
     func testGetInteractor_returnsInteractor_registeredForRequest() {
         // Arrange
-        executor.registerInteractor(firstInteractor, request: firstRequest)
-        executor.registerInteractor(secondInteractor, request: secondRequest)
+        executor.registerInteractor(firstInteractor, request: FirstInteractor.Request.self)
+        executor.registerInteractor(secondInteractor, request: SecondInteractor.Request.self)
         
         // Act
         let firstResult = executor.getInteractor(request: firstRequest)
@@ -125,6 +131,23 @@ class InteractorExecutorTests: XCTestCase {
         
         // Assert
         XCTAssertNil(result)
+    }
+    
+    // MARK: - getInteractor (deprecated)
+    
+    @available(*, deprecated)
+    func testGetInteractor_returnsInteractor_registeredForRequestInstance() {
+        // Arrange
+        executor.registerInteractor(firstInteractor, request: firstRequest)
+        executor.registerInteractor(secondInteractor, request: secondRequest)
+        
+        // Act
+        let firstResult = executor.getInteractor(request: firstRequest)
+        let secondResult = executor.getInteractor(request: secondRequest)
+        
+        // Assert
+        XCTAssert(firstResult === firstInteractor)
+        XCTAssert(secondResult === secondInteractor)
     }
     
 }
