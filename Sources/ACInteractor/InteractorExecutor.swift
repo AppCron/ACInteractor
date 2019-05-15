@@ -9,6 +9,13 @@ open class InteractorExecutor {
     
     // MARK: - Register
     
+    open func registerInteractor<InteractorProtocol: Interactor, RequestProtocol: InteractorRequestProtocol>
+        (_ interactor: InteractorProtocol, request: RequestProtocol.Type)
+    {
+        let key = String(reflecting: request)
+        interactors[key] = InteractorWrapper(interactor: interactor)
+    }
+    
     open func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
@@ -19,7 +26,7 @@ open class InteractorExecutor {
     // MARK: - Execute
     
     open func execute<Request: InteractorRequestProtocol>(_ request: Request) {
-        let key = String(describing: request)
+        let key = String(reflecting: request)
         let optionalValue = interactors[key]
         
         guard let value = optionalValue else {
@@ -38,7 +45,7 @@ open class InteractorExecutor {
     // MARK: - GetInteractor
     
     open func getInteractor<Request: InteractorRequestProtocol>(request: Request) -> AnyObject? {
-        let key = String(describing: request)
+        let key = String(reflecting: request)
         let optional = interactors[key]
         
         guard let wrapper = optional as? InteractorWrapper<Request> else {

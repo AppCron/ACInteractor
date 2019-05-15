@@ -43,6 +43,35 @@ class InteractorExecutorTests: XCTestCase {
     
     func testExecute_callsExecuteOnInteractor_thatIsRegisteredForRequest() {
         // Arrange
+        executor.registerInteractor(firstInteractor, request: FirstInteractor.Request.self)
+        executor.registerInteractor(secondInteractor, request: SecondInteractor.Request.self)
+
+        // Act
+        executor.execute(firstRequest)
+        executor.execute(secondRequest)
+
+        // Assert
+        XCTAssertEqual(firstInteractor.executedRequests.count, 1)
+        XCTAssert(firstInteractor.executedRequests.first === firstRequest)
+
+        XCTAssertEqual(secondInteractor.executedRequests.count, 1)
+        XCTAssert(secondInteractor.executedRequests.first === secondRequest)
+    }
+    
+    func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequestType() {
+        // Arrange
+        executor.registerInteractor(secondInteractor, request: secondRequest)
+
+        // Act
+        executor.execute(firstRequest)
+
+        // Assert
+        let expected = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
+        XCTAssertEqual(errorMessageFromFirstRequest, expected)
+    }
+    
+    func testExecute_callsExecuteOnInteractor_thatIsRegisteredForRequestInstance() {
+        // Arrange
         executor.registerInteractor(firstInteractor, request: firstRequest)
         executor.registerInteractor(secondInteractor, request: secondRequest)
         
@@ -58,7 +87,7 @@ class InteractorExecutorTests: XCTestCase {
         XCTAssert(secondInteractor.executedRequests.first === secondRequest)
     }
     
-    func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequest() {
+    func testExecute_callsErrorOnRequest_whenNoInteractorIsRegisteredForRequestInstance() {
         // Arrange
         executor.registerInteractor(secondInteractor, request: secondRequest)
         
