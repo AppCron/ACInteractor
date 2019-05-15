@@ -9,7 +9,7 @@ open class InteractorExecutor {
     
     // MARK: - Register
     
-    public func registerInteractor<InteractorProtocol: Interactor, Response>
+    open func registerInteractor<InteractorProtocol: Interactor, Response>
         (_ interactor: InteractorProtocol, request: InteractorRequest<Response>)
     {
         let key = String(describing: request)
