@@ -5,17 +5,10 @@ import PackageDescription
 let package = Package(
     name: "ACInteractor",
     products: [
-        .library(
-            name: "ACInteractor",
-            targets: ["ACInteractor"]),
-        ],
-    dependencies: [],
+        .library(name: "ACInteractor", targets: ["ACInteractor"])
+    ],
     targets: [
-        .target(
-            name: "ACInteractor",
-            dependencies: []),
-        .testTarget(
-            name: "ACInteractorTests",
-            dependencies: ["ACInteractor"]),
-        ]
+        .target(name: "ACInteractor"),
+        .testTarget(name: "ACInteractorTests", dependencies: ["ACInteractor"])
+    ]
 )
