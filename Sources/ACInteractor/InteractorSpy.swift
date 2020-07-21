@@ -8,6 +8,8 @@ public class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
     public let noError = InteractorError(message: "no error")
     
     public private(set) var executedRequests = [Request]()
+
+    public init() {}
     
     public func execute(_ request: Request) {
         executedRequests.append(request)

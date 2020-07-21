@@ -6,7 +6,9 @@ typealias InteractorExecuter = InteractorExecutor
 open class InteractorExecutor {
     
     private var interactors = Dictionary<String, AnyObject>()
-    
+
+    public init() {}
+
     // MARK: - Register
     
     open func registerInteractor<InteractorProtocol: Interactor, RequestProtocol: InteractorRequestProtocol>

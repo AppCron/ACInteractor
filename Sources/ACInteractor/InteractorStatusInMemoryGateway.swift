@@ -5,6 +5,8 @@ public class InteractorStatusInMemoryGateway: InteractorStatusGateway {
     
     private var running = false
     
+    public init() {}
+    
     public func isRunning() -> Bool {
         return running
     }
