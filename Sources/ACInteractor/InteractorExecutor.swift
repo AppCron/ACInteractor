@@ -57,17 +57,23 @@ open class InteractorExecutor {
     
     // MARK: - Error Handling
     
-    private func fireErrorOnRequest(_ request: ErrorRequestProtocol, errorMessage: String) {
+    private func fireErrorOnRequest<RequestProtocol: InteractorRequestProtocol>
+        (_ request: RequestProtocol, errorMessage: String)
+    {
         let error = InteractorError(message: errorMessage)
-        request.onError?(error)
+        request.onComplete?(.failure(error))
     }
     
-    private func fireInteractorNotRegisterdError(_ request: ErrorRequestProtocol) {
+    private func fireInteractorNotRegisterdError<RequestProtocol: InteractorRequestProtocol>
+        (_ request: RequestProtocol)
+    {
         let message = "ACInteractor.ACInteractorExecutor: No Interactor is registered for this request!"
         fireErrorOnRequest(request, errorMessage: message)
     }
     
-    private func fireInteractorMismatchError(_ request: ErrorRequestProtocol) {
+    private func fireInteractorMismatchError<RequestProtocol: InteractorRequestProtocol>
+        (_ request: RequestProtocol)
+    {
         let message = "ACInteractor.ACInteractorExecutor: Request does not match execute function of registered Interactor!"
         fireErrorOnRequest(request, errorMessage: message)
     }

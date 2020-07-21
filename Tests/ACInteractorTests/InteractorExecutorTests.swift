@@ -15,8 +15,8 @@ class InteractorExecutorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        firstRequest.onError = { [unowned self] (error: InteractorError) -> Void in
-            self.errorMessageFromFirstRequest = error.message
+        firstRequest.onComplete = { [weak self] result in
+            self?.errorMessageFromFirstRequest = result.getFailure()?.message
         }
     }
     
