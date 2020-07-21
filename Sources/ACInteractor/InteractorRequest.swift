@@ -11,6 +11,7 @@ public protocol InteractorRequestProtocol: ErrorRequestProtocol {
 
 open class InteractorRequest<T>: InteractorRequestProtocol {
     public typealias Response = T
+    public init() {}
     public var onError:((InteractorError) -> Void)?
     public var onComplete:((Response) -> Void)?
 }
