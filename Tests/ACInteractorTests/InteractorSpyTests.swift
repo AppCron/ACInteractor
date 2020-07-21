@@ -11,30 +11,20 @@ class InteractorSpyTests: XCTestCase {
     let firstRequest = SampleRequest()
     let secondRequest = SampleRequest()
     
-    var firstRequestResponse: SampleResponse?
-    var secondRequestResponse: SampleResponse?
-    var firstRequestError: InteractorError?
-    var secondRequestError: InteractorError?
+    var firstRequestResult: Result<SampleResponse, InteractorError>?
+    var secondRequestResult: Result<SampleResponse, InteractorError>?
     
     let testError = InteractorError(message: "test error")
     
     override func setUp() {
         super.setUp()
         
-        firstRequest.onComplete = { response in
-            self.firstRequestResponse = response
+        firstRequest.onComplete = { result in
+            self.firstRequestResult = result
         }
         
-        firstRequest.onError = { error in
-            self.firstRequestError = error
-        }
-        
-        secondRequest.onComplete = { response in
-            self.secondRequestResponse = response
-        }
-        
-        secondRequest.onError = { error in
-            self.secondRequestError = error
+        secondRequest.onComplete = { result in
+            self.secondRequestResult = result
         }
     }
     
@@ -79,8 +69,8 @@ class InteractorSpyTests: XCTestCase {
         spy.execute(secondRequest)
         
         // Assert
-        XCTAssert(firstRequestResponse === firstResponse)
-        XCTAssert(secondRequestResponse === secondResponse)
+        XCTAssert(firstRequestResult?.getSuccess() === firstResponse)
+        XCTAssert(secondRequestResult?.getSuccess() === secondResponse)
     }
     
     // MARK: - Error Handling
@@ -96,8 +86,8 @@ class InteractorSpyTests: XCTestCase {
         spy.execute(secondRequest)
         
         // Assert
-        XCTAssert(firstRequestError === firstError)
-        XCTAssert(secondRequestError === secondError)
+        XCTAssert(firstRequestResult?.getFailure() === firstError)
+        XCTAssert(secondRequestResult?.getFailure() === secondError)
     }
     
     // MARK: - Mixed Responses and Errors
@@ -114,11 +104,8 @@ class InteractorSpyTests: XCTestCase {
         spy.execute(secondRequest)
         
         // Assert
-        XCTAssert(firstRequestResponse == nil)
-        XCTAssert(firstRequestError === testError)
-        
-        XCTAssert(secondRequestResponse === firstResponse)
-        XCTAssert(secondRequestError == nil)
+        XCTAssert(firstRequestResult?.getFailure() === testError)
+        XCTAssert(secondRequestResult?.getSuccess() === firstResponse)
     }
     
     func testExecute_callsOnComplete_whenNoErrorConstantIsUsed() {
@@ -133,11 +120,8 @@ class InteractorSpyTests: XCTestCase {
         spy.execute(secondRequest)
         
         // Assert
-        XCTAssert(firstRequestResponse === firstResponse)
-        XCTAssert(firstRequestError == nil)
-        
-        XCTAssert(secondRequestResponse == nil)
-        XCTAssert(secondRequestError === testError)
+        XCTAssert(firstRequestResult?.getSuccess() === firstResponse)
+        XCTAssert(secondRequestResult?.getFailure() === testError)
     }
     
     // MARK: - Request Count

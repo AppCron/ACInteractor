@@ -16,7 +16,7 @@ public class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
             returnsErrors.remove(at: 0)
             
             if error != noError {
-                request.onError?(error)
+                request.onComplete?(.failure(error))
                 return
             }
         }
@@ -26,7 +26,7 @@ public class InteractorSpy<Request: InteractorRequestProtocol>: Interactor {
                 returnsResponses.remove(at: 0)
             }
             
-            request.onComplete?(response)
+            request.onComplete?(.success(response))
             return
         }
     }

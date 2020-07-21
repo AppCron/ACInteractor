@@ -6,17 +6,11 @@ public protocol ErrorRequestProtocol {
 
 public protocol InteractorRequestProtocol: ErrorRequestProtocol {
     associatedtype Response
-    var onComplete:((Response) -> Void)? {get set}
+    var onComplete: ((Result<Response, InteractorError>) -> Void)? {get set}
 }
 
 open class InteractorRequest<T>: InteractorRequestProtocol {
     public typealias Response = T
     public var onError:((InteractorError) -> Void)?
-    public var onComplete:((Response) -> Void)?
-}
-
-public extension InteractorRequest where Response == Void  {
-    func onCompleteVoid() {
-        onComplete?(())
-    }
+    public var onComplete: ((Result<Response, InteractorError>) -> Void)?
 }
